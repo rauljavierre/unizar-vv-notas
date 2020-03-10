@@ -132,7 +132,7 @@ public class Test {
     }
 
     private void testCreateCategoryValid(){
-        // Prueba categoría con name != null ^ name.length > 0
+        // Prueba categoria con name != null ^ name.length > 0
         try{
             mDbHelper.createCategory("Universidad");
             android.util.Log.d("createCategoryValid","OK (name != null ^ name.length > 0)");
