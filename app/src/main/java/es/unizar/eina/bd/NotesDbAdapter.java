@@ -10,8 +10,6 @@ import android.util.Log;
 
 import java.util.Calendar;
 
-import es.unizar.eina.notepadv3.R;
-
 /**
  * Simple notes database access helper class. Defines the basic CRUD operations
  * for the notepad example, and gives the ability to list all notes as well as

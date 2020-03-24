@@ -1,4 +1,4 @@
-package es.unizar.eina.notepadv3;
+package es.unizar.eina.notes;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 import es.unizar.eina.bd.NotesDbAdapter;
+import es.unizar.eina.categories.Categories;
+import es.unizar.eina.categories.CategoryEdit;
 import es.unizar.eina.send.SendAbstractionImpl;
 import es.unizar.eina.test.Test;
 

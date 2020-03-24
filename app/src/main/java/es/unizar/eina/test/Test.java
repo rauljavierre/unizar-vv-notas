@@ -5,7 +5,7 @@ import android.util.Log;
 import java.util.Calendar;
 
 import es.unizar.eina.bd.NotesDbAdapter;
-import es.unizar.eina.notepadv3.R;
+import es.unizar.eina.notes.R;
 
 public class Test {
     private NotesDbAdapter mDbHelper;

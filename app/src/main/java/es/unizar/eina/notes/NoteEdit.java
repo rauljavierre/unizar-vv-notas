@@ -1,4 +1,4 @@
-package es.unizar.eina.notepadv3;
+package es.unizar.eina.notes;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +12,7 @@ import android.database.Cursor;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 
-import java.text.DateFormat;
 import java.util.Calendar;
-import java.util.TimeZone;
 
 import es.unizar.eina.bd.NotesDbAdapter;
 

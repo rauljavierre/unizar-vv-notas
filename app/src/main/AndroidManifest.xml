@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="es.unizar.eina.notepadv3" >
+    package="es.unizar.eina.notes" >
     <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".Notes"
+            android:name="es.unizar.eina.notes.Notes"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,28 +18,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="es.unizar.eina.notepadv3.NoteEdit"
+            android:name="es.unizar.eina.notes.NoteEdit"
             android:label="@string/title_activity_note_edit"
-            android:parentActivityName=".Notes" >
+            android:parentActivityName="es.unizar.eina.notes.Notes" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Notes" />
+                android:value="es.unizar.eina.notes.Notes" />
         </activity>
         <activity
-            android:name="es.unizar.eina.notepadv3.CategoryEdit"
+            android:name="es.unizar.eina.categories.CategoryEdit"
             android:label="@string/title_activity_category_edit"
-            android:parentActivityName=".Notes" >
+            android:parentActivityName="es.unizar.eina.notes.Notes" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Notes" />
+                android:value="es.unizar.eina.notes.Notes" />
         </activity>
         <activity
-            android:name="es.unizar.eina.notepadv3.Categories"
+            android:name="es.unizar.eina.categories.Categories"
             android:label="@string/title_activity_categories"
-            android:parentActivityName=".Notes" >
+            android:parentActivityName="es.unizar.eina.notes.Notes" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Notes" />
+                android:value="es.unizar.eina.notes.Notes" />
         </activity>
     </application>
 

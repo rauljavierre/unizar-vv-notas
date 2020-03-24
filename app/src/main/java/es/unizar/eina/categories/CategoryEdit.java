@@ -1,4 +1,4 @@
-package es.unizar.eina.notepadv3;
+package es.unizar.eina.categories;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 
 import es.unizar.eina.bd.NotesDbAdapter;
+import es.unizar.eina.notes.R;
 
 public class CategoryEdit extends AppCompatActivity {
 

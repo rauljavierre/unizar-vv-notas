@@ -1,4 +1,4 @@
-package es.unizar.eina.notepadv3;
+package es.unizar.eina.categories;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,6 +13,8 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
 import es.unizar.eina.bd.NotesDbAdapter;
+import es.unizar.eina.notes.Notes;
+import es.unizar.eina.notes.R;
 
 public class Categories extends AppCompatActivity {
 
