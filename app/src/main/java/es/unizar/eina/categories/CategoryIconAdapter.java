@@ -51,4 +51,5 @@ public class CategoryIconAdapter extends BaseAdapter {
         categoryName.setText(lista.get(position).getCategoryName());
         return vista;
     }
+
 }
