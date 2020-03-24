@@ -2,7 +2,10 @@ package es.unizar.eina.test;
 
 import android.util.Log;
 
+import java.util.Calendar;
+
 import es.unizar.eina.bd.NotesDbAdapter;
+import es.unizar.eina.notepadv3.R;
 
 public class Test {
     private NotesDbAdapter mDbHelper;
@@ -32,13 +35,14 @@ public class Test {
         String text = "texttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttext";
         int numCaracteres = 5000;
         try{
-            Long rowID = mDbHelper.createNote("sobrecarga",text,"Ninguna");
+            Calendar calendar = Calendar.getInstance();
+            Long rowID = mDbHelper.createNote("sobrecarga",text, calendar.getTimeInMillis(), calendar.getTimeInMillis(),"Ninguna");
             while(rowID != -1){
                 android.util.Log.d("testSobrecarga","OK con caracteres = " + numCaracteres);
                 text = text + "texttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttexttext";
                 numCaracteres += 5000;
                 mDbHelper.deleteNote(rowID);
-                rowID = mDbHelper.createNote(text,text,"Ninguna");
+                rowID = mDbHelper.createNote(text,text, calendar.getTimeInMillis(), calendar.getTimeInMillis(),"Ninguna");
             }
         }
         catch (Throwable t){
@@ -85,7 +89,8 @@ public class Test {
     private void testCreateNoteValid(){
         // Prueba nota con titulo != null ^ titulo.length > 0 ^ body != null ^ category != null
         try {
-            Long rowId = mDbHelper.createNote("Nota funcional", "Va a funcionar", "Ninguna");
+            Calendar calendar = Calendar.getInstance();
+            Long rowId = mDbHelper.createNote("Nota funcional", "Va a funcionar", calendar.getTimeInMillis(), calendar.getTimeInMillis(), "Ninguna");
             android.util.Log.d("createNoteValid", "OK (titulo != null ^ titulo.length > 0 ^ body != null ^ category != null)");
             mDbHelper.deleteNote(rowId);
         }
@@ -96,8 +101,10 @@ public class Test {
 
     private void testCreateNoteNotValid(){
         // Prueba con titulo = null
+        Calendar calendar = Calendar.getInstance();
         try{
-            mDbHelper.createNote(null,"No va a funcionar","Ninguna");
+
+            mDbHelper.createNote(null,"No va a funcionar", calendar.getTimeInMillis(), calendar.getTimeInMillis(),"Ninguna");
             android.util.Log.d("createNoteNotValid","NO OK (titulo = null)");
         }
         catch (Throwable t){
@@ -105,7 +112,7 @@ public class Test {
         }
 
         // Prueba con titulo.length() = 0
-        if(mDbHelper.createNote(new String(),"Esto tampoco va a funcionar","Ninguna") != -1){
+        if(mDbHelper.createNote(new String(),"Esto tampoco va a funcionar", calendar.getTimeInMillis(), calendar.getTimeInMillis(),"Ninguna") != -1){
             android.util.Log.d("createNoteNotValid","NO OK (titulo.length() = 0)");
         }
         else{
@@ -114,7 +121,7 @@ public class Test {
 
         // Prueba con body = null
         try{
-            mDbHelper.createNote("Esto no va a funcionar",null,"Ninguna");
+            mDbHelper.createNote("Esto no va a funcionar",null, calendar.getTimeInMillis(), calendar.getTimeInMillis(),"Ninguna");
             android.util.Log.d("createNoteNotValid","NO OK (body = null)");
         }
         catch (Throwable t){
@@ -123,7 +130,7 @@ public class Test {
 
         // Prueba con category = null
         try{
-            mDbHelper.createNote("Esto no va a funcionar","cuerpo",null);
+            mDbHelper.createNote("Esto no va a funcionar","cuerpo", calendar.getTimeInMillis(), calendar.getTimeInMillis(),null);
             android.util.Log.d("createNoteNotValid","NO OK (category = null)");
         }
         catch (Throwable t){
@@ -134,7 +141,7 @@ public class Test {
     private void testCreateCategoryValid(){
         // Prueba categoria con name != null ^ name.length > 0
         try{
-            mDbHelper.createCategory("Universidad");
+            mDbHelper.createCategory("Universidad", R.drawable.ic_local_dining_black_24dp);
             android.util.Log.d("createCategoryValid","OK (name != null ^ name.length > 0)");
             mDbHelper.deleteCategory("Universidad");
         }
@@ -146,7 +153,7 @@ public class Test {
     private void testCreateCategoryNotValid(){
         // Prueba con name = null
         try{
-            mDbHelper.createCategory(null);
+            mDbHelper.createCategory(null, R.drawable.ic_local_dining_black_24dp);
             android.util.Log.d("createCategoryNotValid","NO OK (name = null)");
         }
         catch (Throwable t){
@@ -154,7 +161,7 @@ public class Test {
         }
 
         // Prueba con name.length() = 0
-        if(mDbHelper.createCategory(new String()) != "Ninguna"){
+        if(mDbHelper.createCategory(new String(), R.drawable.ic_local_dining_black_24dp) != "Ninguna"){
             android.util.Log.d("createCategoryNotValid","NO OK (name.length() = 0)");
         }
         else{
@@ -163,8 +170,9 @@ public class Test {
     }
 
     private void testDeleteNoteValid(){
+        Calendar calendar = Calendar.getInstance();
         // Creamos una nota para posteriormente eliminarla
-        long rowId = mDbHelper.createNote("Nota a eliminar", "Esta nota va a ser eliminada","Ninguna");
+        long rowId = mDbHelper.createNote("Nota a eliminar", "Esta nota va a ser eliminada", calendar.getTimeInMillis(), calendar.getTimeInMillis(),"Ninguna");
 
         if(mDbHelper.deleteNote(rowId)){
             android.util.Log.d("deleteNoteValid","OK (0 < rowId <= #notas)");
@@ -175,6 +183,7 @@ public class Test {
     }
 
     private void testDeleteNoteNotValid(){
+        Calendar calendar = Calendar.getInstance();
         // Intentamos eliminar una nota con rowId < 0
         if(mDbHelper.deleteNote(-1)){
             android.util.Log.d("deleteNoteNotValid","NO OK (rowId < 0)");
@@ -192,7 +201,7 @@ public class Test {
         }
 
         // Creamos una nota para que nos devuelva un rowId e intentar eliminar una nota con un rowId mayor
-        long rowId = mDbHelper.createNote("Nota complice", "Esta nota NO va a ser eliminada","Ninguna");
+        long rowId = mDbHelper.createNote("Nota complice", "Esta nota NO va a ser eliminada", calendar.getTimeInMillis(), calendar.getTimeInMillis(),"Ninguna");
 
         if(mDbHelper.deleteNote(rowId + 1)){
             android.util.Log.d("deleteNoteNotValid","NO OK (rowId > #notas)");
@@ -207,7 +216,7 @@ public class Test {
 
     private void testDeleteCategoryValid(){
         // Creamos una categoría para posteriormente eliminarla
-        mDbHelper.createCategory("A eliminar");
+        mDbHelper.createCategory("A eliminar", R.drawable.ic_local_dining_black_24dp);
 
         if(mDbHelper.deleteCategory("A eliminar")){
             android.util.Log.d("deleteCategoryValid","OK (Existe ^ name != null ^ name.length > 0)");
@@ -244,10 +253,11 @@ public class Test {
     }
 
     private void testUpdateNoteValid(){
+        Calendar calendar = Calendar.getInstance();
         // Creamos una nota para posteriormente actualizarla
-        long rowId = mDbHelper.createNote("Nota a actualizar", "Esta nota va a ser actualizada","Ninguna");
+        long rowId = mDbHelper.createNote("Nota a actualizar", "Esta nota va a ser actualizada",calendar.getTimeInMillis(), calendar.getTimeInMillis(),"Ninguna");
 
-        if(mDbHelper.updateNote(rowId,"Nota actualizada","Esta nota ha sido actualizada","Ninguna")){
+        if(mDbHelper.updateNote(rowId,"Nota actualizada","Esta nota ha sido actualizada", calendar.getTimeInMillis(), calendar.getTimeInMillis(),"Ninguna")){
             android.util.Log.d("updateNoteValid","OK (rowId > 0 ^ rowId <= #notas)");
             mDbHelper.deleteNote(rowId);
         }
@@ -257,8 +267,9 @@ public class Test {
     }
 
     private void testUpdateNoteNotValid(){
+        Calendar calendar = Calendar.getInstance();
         // Intentamos actualizar una nota con rowId < 0
-        if(mDbHelper.updateNote(-1,"No existe", "No se va a poder hacer","Ninguna")){
+        if(mDbHelper.updateNote(-1,"No existe", "No se va a poder hacer", calendar.getTimeInMillis(), calendar.getTimeInMillis(),"Ninguna")){
             android.util.Log.d("updateNoteNotValid","NO OK (rowId < 0)");
         }
         else{
@@ -266,7 +277,7 @@ public class Test {
         }
 
         // Intentamos actualizar una nota con rowId = 0
-        if(mDbHelper.updateNote(0,"No existe", "No se va a poder hacer","Ninguna")){
+        if(mDbHelper.updateNote(0,"No existe", "No se va a poder hacer", calendar.getTimeInMillis(), calendar.getTimeInMillis(),"Ninguna")){
             android.util.Log.d("updateNoteNotValid","NO OK (rowId = 0)");
         }
         else{
@@ -274,9 +285,9 @@ public class Test {
         }
 
         // Creamos una nota para que nos devuelva un rowId e intentar actualizar una nota con un rowId mayor
-        long rowId = mDbHelper.createNote("Nota complice", "Esta nota NO va a ser actualizada","Ninguna");
+        long rowId = mDbHelper.createNote("Nota complice", "Esta nota NO va a ser actualizada", calendar.getTimeInMillis(), calendar.getTimeInMillis(),"Ninguna");
 
-        if(mDbHelper.updateNote(rowId + 1,"No existe", "No se va a poder hacer","Ninguna")){
+        if(mDbHelper.updateNote(rowId + 1,"No existe", "No se va a poder hacer", calendar.getTimeInMillis(), calendar.getTimeInMillis(),"Ninguna")){
             android.util.Log.d("updateNoteNotValid","NO OK (rowId > #notas)");
         }
         else{
@@ -284,7 +295,7 @@ public class Test {
         }
 
         // Intentamos actualizar la nota cómplice con un título nulo
-        if(mDbHelper.updateNote(rowId,null, "No se va a poder hacer","Ninguna")){
+        if(mDbHelper.updateNote(rowId,null, "No se va a poder hacer", calendar.getTimeInMillis(), calendar.getTimeInMillis(),"Ninguna")){
             android.util.Log.d("updateNoteNotValid","NO OK (titulo = null)");
         }
         else{
@@ -292,7 +303,7 @@ public class Test {
         }
 
         // Intentamos actualizar la nota cómplice con titulo.length = 0
-        if(mDbHelper.updateNote(rowId, new String(), "No se va a poder hacer","Ninguna")){
+        if(mDbHelper.updateNote(rowId, new String(), "No se va a poder hacer", calendar.getTimeInMillis(), calendar.getTimeInMillis(),"Ninguna")){
             android.util.Log.d("updateNoteNotValid","NO OK (titulo.length = 0)");
         }
         else{
@@ -300,7 +311,7 @@ public class Test {
         }
 
         // Intentamos actualizar la nota cómplice con body = null
-        if(mDbHelper.updateNote(rowId, "fail", null,"Ninguna")){
+        if(mDbHelper.updateNote(rowId, "fail", null, calendar.getTimeInMillis(), calendar.getTimeInMillis(),"Ninguna")){
             android.util.Log.d("updateNoteNotValid","NO OK (body = null)");
         }
         else{
@@ -308,7 +319,7 @@ public class Test {
         }
 
         // Intentamos actualizar la nota cómplice con category = null
-        if(mDbHelper.updateNote(rowId, "fail", "fail_body",null)){
+        if(mDbHelper.updateNote(rowId, "fail", "fail_body", calendar.getTimeInMillis(), calendar.getTimeInMillis(),null)){
             android.util.Log.d("updateNoteNotValid","NO OK (category = null)");
         }
         else{
@@ -321,9 +332,9 @@ public class Test {
 
     private void testUpdateCategoryValid(){
         // Creamos una categoría para posteriormente actualizarla
-        mDbHelper.createCategory("Categoría vieja");
+        mDbHelper.createCategory("Categoría vieja", R.drawable.ic_local_dining_black_24dp);
 
-        if(mDbHelper.updateCategory("Categoría vieja", "Categoría nueva")){
+        if(mDbHelper.updateCategory("Categoría vieja", "Categoría nueva", R.drawable.ic_local_dining_black_24dp)){
             android.util.Log.d("updateCategoryValid","OK (oldName existe ^ name no existe ^ oldName != null ^ oldName.length > 0 ^ name != null ^ name.length > 0)");
         }
         else{
@@ -336,7 +347,7 @@ public class Test {
 
     private void testUpdateCategoryNotValid(){
         // Intentamos actualizar una categoría que no existe
-        if(mDbHelper.updateCategory("Categoría no existente", "fail")){
+        if(mDbHelper.updateCategory("Categoría no existente", "fail", R.drawable.ic_local_dining_black_24dp)){
             android.util.Log.d("updateCategoryNotValid","NO OK (oldName no existe)");
         }
         else{
@@ -344,7 +355,7 @@ public class Test {
         }
 
         // Intentamos actualizar una categoría nula
-        if(mDbHelper.updateCategory(null, "fail")){
+        if(mDbHelper.updateCategory(null, "fail", R.drawable.ic_local_dining_black_24dp)){
             android.util.Log.d("updateCategoryNotValid","NO OK (oldName = null)");
         }
         else{
@@ -352,7 +363,7 @@ public class Test {
         }
 
         // Intentamos actualizar una oldName.length = 0
-        if(mDbHelper.updateCategory(new String(), "fail")){
+        if(mDbHelper.updateCategory(new String(), "fail", R.drawable.ic_local_dining_black_24dp)){
             android.util.Log.d("updateCategoryNotValid","NO OK (oldName.length = 0)");
         }
         else{
@@ -360,10 +371,10 @@ public class Test {
         }
 
         // Intentamos actualizar una categoría existente y le ponemos el nombre de otra categoría también existente
-        mDbHelper.createCategory("A actualizar");
-        mDbHelper.createCategory("No va a dejar que se actualice");
+        mDbHelper.createCategory("A actualizar", R.drawable.ic_local_dining_black_24dp);
+        mDbHelper.createCategory("No va a dejar que se actualice", R.drawable.ic_local_dining_black_24dp);
 
-        if(mDbHelper.updateCategory("A actualizar", "No va a dejar que se actualice")){
+        if(mDbHelper.updateCategory("A actualizar", "No va a dejar que se actualice", R.drawable.ic_local_dining_black_24dp)){
             android.util.Log.d("updateCategoryNotValid","NO OK (name existe)");
         }
         else{
@@ -371,7 +382,7 @@ public class Test {
         }
 
         // Intentamos actualizar una categoría existente y le ponemos el nuevo nombre nulo
-        if(mDbHelper.updateCategory("A actualizar", null)){
+        if(mDbHelper.updateCategory("A actualizar", null, R.drawable.ic_local_dining_black_24dp)){
             android.util.Log.d("updateCategoryNotValid","NO OK (name = null)");
         }
         else{
@@ -379,7 +390,7 @@ public class Test {
         }
 
         // Intentamos actualizar una categoría existente y name.length = 0
-        if(mDbHelper.updateCategory("A actualizar", new String())){
+        if(mDbHelper.updateCategory("A actualizar", new String(), R.drawable.ic_local_dining_black_24dp)){
             android.util.Log.d("updateCategoryNotValid","NO OK (name.length = 0)");
         }
         else{
@@ -403,9 +414,10 @@ public class Test {
     }
 
     private long insertarNotas(int cantidad){
+        Calendar calendar = Calendar.getInstance();
         Long rowId = null;
         for(int i = 0; i < cantidad; i++){
-            rowId = mDbHelper.createNote("Nota test numero " + Integer.toString(i),"body","Ninguna");
+            rowId = mDbHelper.createNote("Nota test numero " + Integer.toString(i),"body", calendar.getTimeInMillis(), calendar.getTimeInMillis(),"Ninguna");
         }
         return rowId;
     }

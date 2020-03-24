@@ -6,12 +6,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.database.Cursor;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
 
 import es.unizar.eina.bd.NotesDbAdapter;
 
 public class CategoryEdit extends AppCompatActivity {
 
     private EditText mNameText;
+    private Spinner imageList;
+    private CategoryWithImage categoryWithImage;
+    private CategoryIconAdapter categoryIconAdapter;
+    private ArrayList<CategoryWithImage> listaImagenes;
 
     private String mRowId;
     private NotesDbAdapter mDbHelper;
@@ -23,7 +30,12 @@ public class CategoryEdit extends AppCompatActivity {
         setContentView(R.layout.category_edit);
         setTitle(R.string.title_activity_category_edit);
 
+        cargarSpinner();
         mNameText = (EditText) findViewById(R.id.name);
+        imageList = (Spinner) findViewById(R.id.spinnerImages);
+        categoryIconAdapter = new CategoryIconAdapter(this, listaImagenes);
+        imageList.setAdapter(categoryIconAdapter);
+
 
         Button confirmButton = (Button) findViewById(R.id.confirm);
 
@@ -43,11 +55,25 @@ public class CategoryEdit extends AppCompatActivity {
         });
     }
 
+    private void cargarSpinner(){
+        listaImagenes = new ArrayList<>();
+        listaImagenes.add(new CategoryWithImage("Comida", R.drawable.ic_local_dining_black_24dp));
+        listaImagenes.add(new CategoryWithImage("Estudio", R.drawable.ic_library_books_black_24dp));
+        listaImagenes.add(new CategoryWithImage("Música", R.drawable.ic_headset_black_24dp));
+    }
+
     private void populateFields() {
         if (mRowId != null) {
             Cursor note = mDbHelper.fetchCategory(mRowId);
             startManagingCursor(note);
             mNameText.setText(note.getString(note.getColumnIndexOrThrow(NotesDbAdapter.KEY_CATEGORY_NAME)));
+            listaImagenes = new ArrayList<>();
+            listaImagenes.add(new CategoryWithImage("Comida", note.getColumnIndexOrThrow(NotesDbAdapter.KEY_CATEGORY_ICON)));
+            listaImagenes.add(new CategoryWithImage("Música", R.drawable.ic_headset_black_24dp));
+            listaImagenes.add(new CategoryWithImage("Comida", R.drawable.ic_local_dining_black_24dp));
+            listaImagenes.add(new CategoryWithImage("Estudio", R.drawable.ic_library_books_black_24dp));
+            categoryIconAdapter = new CategoryIconAdapter(this, listaImagenes);
+            imageList.setAdapter(categoryIconAdapter);
         }
     }
 
@@ -72,14 +98,17 @@ public class CategoryEdit extends AppCompatActivity {
 
     private void saveState () {
         String name = mNameText.getText().toString();
+        CategoryWithImage cat = (CategoryWithImage) imageList.getSelectedItem();
+        int icon = cat.getIcon();
         if(!name.equals("Ninguna")) {
             if (mRowId == null) {
-                String id = mDbHelper.createCategory(name);
+                String id = mDbHelper.createCategory(name, R.drawable.ic_local_dining_black_24dp);
                 if (!id.equals("Ninguna")) {
                     mRowId = id;
                 }
+
             } else {
-                mDbHelper.updateCategory(mRowId, name);
+                mDbHelper.updateCategory(mRowId, name, icon);
             }
         }
     }

@@ -18,6 +18,11 @@
             android:layout_weight="1"/>
     </LinearLayout>
 
+    <Spinner
+        android:id="@+id/spinnerImages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <Button
         android:id="@+id/confirm"
         android:layout_width="wrap_content"

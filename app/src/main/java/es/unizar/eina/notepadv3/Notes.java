@@ -33,6 +33,11 @@ public class Notes extends AppCompatActivity {
     private static final int ORDENAR_POR_NOTAS = Menu.FIRST + 9;
     private static final int ORDENAR_POR_CATEGORIAS = Menu.FIRST + 10;
     private static final int VER_CATEGORIAS = Menu.FIRST + 11;
+    private static final int VER_NOTAS = Menu.FIRST + 12;
+    private static final int VER_NOTAS_PREVISTAS = Menu.FIRST + 13;
+    private static final int VER_NOTAS_VIGENTES = Menu.FIRST + 14;
+    private static final int VER_NOTAS_CADUCADAS = Menu.FIRST + 15;
+
 
     private NotesDbAdapter mDbHelper;
     private ListView mList;
@@ -98,6 +103,51 @@ public class Notes extends AppCompatActivity {
         mList.setAdapter(notes);
     }
 
+    private void fillExpectedNotes(){
+        Cursor notesCursor = mDbHelper.fetchExpectedNotes();
+        startManagingCursor(notesCursor);
+
+        // Create an array to specify the fields we want to display in the list
+        String[] from = new String[] { NotesDbAdapter.KEY_NOTE_TITLE};
+
+        // and an array of the fields we want to bind those fields to
+        int[] to = new int[] { R.id.text1};
+
+        // Now create an array adapter and set it to display using our row
+        SimpleCursorAdapter notes = new SimpleCursorAdapter(this, R.layout.rows, notesCursor, from, to);
+        mList.setAdapter(notes);
+    }
+
+    private void fillCurrentNotes(){
+        Cursor notesCursor = mDbHelper.fetchCurrentNotes();
+        startManagingCursor(notesCursor);
+
+        // Create an array to specify the fields we want to display in the list
+        String[] from = new String[] { NotesDbAdapter.KEY_NOTE_TITLE};
+
+        // and an array of the fields we want to bind those fields to
+        int[] to = new int[] { R.id.text1};
+
+        // Now create an array adapter and set it to display using our row
+        SimpleCursorAdapter notes = new SimpleCursorAdapter(this, R.layout.rows, notesCursor, from, to);
+        mList.setAdapter(notes);
+    }
+
+    private void fillExpiredNotes(){
+        Cursor notesCursor = mDbHelper.fetchExpiredNotes();
+        startManagingCursor(notesCursor);
+
+        // Create an array to specify the fields we want to display in the list
+        String[] from = new String[] { NotesDbAdapter.KEY_NOTE_TITLE};
+
+        // and an array of the fields we want to bind those fields to
+        int[] to = new int[] { R.id.text1};
+
+        // Now create an array adapter and set it to display using our row
+        SimpleCursorAdapter notes = new SimpleCursorAdapter(this, R.layout.rows, notesCursor, from, to);
+        mList.setAdapter(notes);
+    }
+
     private void fillDataOrderedByCategory() {
         // Get all of the notes from the database and create the item list
         Cursor notesCursor = mDbHelper.fetchAllNotesOrderedByCategory();
@@ -125,6 +175,9 @@ public class Notes extends AppCompatActivity {
         menu.add(Menu.NONE, ORDENAR_POR_NOTAS, Menu.NONE, R.string.menu_ordenar_por_notas);
         menu.add(Menu.NONE, ORDENAR_POR_CATEGORIAS, Menu.NONE, R.string.menu_ordenar_por_categorias);
         menu.add(Menu.NONE, VER_CATEGORIAS, Menu.NONE, R.string.menu_mostrar_categorias);
+        menu.add(Menu.NONE, VER_NOTAS_PREVISTAS, Menu.NONE, "Notas previstas");
+        menu.add(Menu.NONE, VER_NOTAS_VIGENTES, Menu.NONE, "Notas vigentes");
+        menu.add(Menu.NONE, VER_NOTAS_CADUCADAS, Menu.NONE, "Notas caducadas");
         return result;
     }
 
@@ -158,6 +211,15 @@ public class Notes extends AppCompatActivity {
             case VER_CATEGORIAS:
                 Intent i = new Intent(this, Categories.class);
                 startActivityForResult(i, ACTIVITY_CREATE);
+                return true;
+            case VER_NOTAS_PREVISTAS:
+                fillExpectedNotes();
+                return true;
+            case VER_NOTAS_VIGENTES:
+                fillCurrentNotes();
+                return true;
+            case VER_NOTAS_CADUCADAS:
+                fillExpiredNotes();
                 return true;
         }
         return super.onOptionsItemSelected(item);

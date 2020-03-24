@@ -8,6 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.Calendar;
+
+import es.unizar.eina.notepadv3.R;
+
 /**
  * Simple notes database access helper class. Defines the basic CRUD operations
  * for the notepad example, and gives the ability to list all notes as well as
@@ -20,12 +24,16 @@ import android.util.Log;
  */
 public class NotesDbAdapter {
 
+
     public static final String KEY_NOTE_TITLE = "title";
     public static final String KEY_NOTE_BODY = "body";
     public static final String KEY_NOTE_CATEGORY = "category";
     public static final String KEY_NOTE_ROWID = "_id";
+    public static final String KEY_NOTE_ACTIVATION_DATE = "activation";
+    public static final String KEY_NOTE_EXPIRATION_DATE = "expiration";
 
     public static final String KEY_CATEGORY_NAME = "_id";
+    public static final String KEY_CATEGORY_ICON = "icon";
 
     private static final String TAG = "NotesDbAdapter";
 
@@ -36,8 +44,8 @@ public class NotesDbAdapter {
     /**
      * Database creation sql statement
      */
-    private static final String DATABASE_CREATE_TABLE_CATEGORIES = "create table categories (_id text primary key);";
-    private static final String DATABASE_CREATE_TABLE_NOTES = "create table notes (_id integer primary key autoincrement, " + "title text not null, body text not null, category text references categories(_id));";
+    private static final String DATABASE_CREATE_TABLE_CATEGORIES = "create table categories (_id text primary key, icon integer);";
+    private static final String DATABASE_CREATE_TABLE_NOTES = "create table notes (_id integer primary key autoincrement, " + "title text not null, body text not null, activation long not null, expiration long not null, category text references categories(_id));";
 
     private static final String DATABASE_NAME = "data";
     private static final String DATABASE_TABLE_CATEGORIES = "categories";
@@ -118,13 +126,17 @@ public class NotesDbAdapter {
      * @param title the title of the note... title != null ^ title.length > 0
      * @param body the body of the note... body != null
      * @param category the category of the note... category != null
+     * @param activationDate the activation date of the note... activationDate >= 0 & activationDate <= expirationDate
+     * @param expirationDate the expiration date of the note... expirationDate >= 0 & expirationDate >= activationDate
      * @return rowId or -1 if failed
      */
-    public long createNote(String title, String body, String category) {
+    public long createNote(String title, String body, long activationDate, long expirationDate, String category) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_NOTE_TITLE, title);
         initialValues.put(KEY_NOTE_BODY, body);
         initialValues.put(KEY_NOTE_CATEGORY, category);
+        initialValues.put(KEY_NOTE_ACTIVATION_DATE, activationDate);
+        initialValues.put(KEY_NOTE_EXPIRATION_DATE, expirationDate);
 
         if(title.length() == 0){
             return -1;
@@ -143,9 +155,10 @@ public class NotesDbAdapter {
      * @param name the name of the category... name != null ^ name.length > 0
      * @return "Ninguna" if failed, name otherwise
      */
-    public String createCategory(String name) {
+    public String createCategory(String name, int icon) {
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_CATEGORY_NAME, name);
+        initialValues.put(KEY_CATEGORY_ICON, icon);
 
         if(name.length() == 0){
             return "Ninguna";
@@ -187,7 +200,7 @@ public class NotesDbAdapter {
      * @return Cursor over all notes ordered by name
      */
     public Cursor fetchAllNotes() {
-        return mDb.query(DATABASE_TABLE_NOTES, new String[] {KEY_NOTE_ROWID, KEY_NOTE_TITLE, KEY_NOTE_BODY, KEY_NOTE_CATEGORY}, null, null, null, null, KEY_NOTE_TITLE);
+        return mDb.query(DATABASE_TABLE_NOTES, new String[] {KEY_NOTE_ROWID, KEY_NOTE_TITLE, KEY_NOTE_BODY, KEY_NOTE_ACTIVATION_DATE, KEY_NOTE_EXPIRATION_DATE, KEY_NOTE_CATEGORY}, null, null, null, null, KEY_NOTE_TITLE);
     }
 
     /**
@@ -196,7 +209,37 @@ public class NotesDbAdapter {
      * @return Cursor over all notes ordered by category
      */
     public Cursor fetchAllNotesOrderedByCategory() {
-        return mDb.query(DATABASE_TABLE_NOTES, new String[] {KEY_NOTE_ROWID, KEY_NOTE_TITLE, KEY_NOTE_BODY, KEY_NOTE_CATEGORY}, null, null, null, null, KEY_NOTE_CATEGORY);
+        return mDb.query(DATABASE_TABLE_NOTES, new String[] {KEY_NOTE_ROWID, KEY_NOTE_TITLE, KEY_NOTE_BODY, KEY_NOTE_ACTIVATION_DATE, KEY_NOTE_EXPIRATION_DATE, KEY_NOTE_CATEGORY}, null, null, null, null, KEY_NOTE_CATEGORY);
+    }
+
+    /**
+     * Return a Cursor over the list of all notes in the database with state = expected
+     *
+     * @return Cursor over all notes with state = expected
+     */
+    public Cursor fetchExpectedNotes() {
+        Calendar calendar = Calendar.getInstance();
+        return mDb.rawQuery("SELECT * FROM NOTES WHERE ? < ACTIVATION", new String[]{Long.toString(calendar.getTimeInMillis())});
+    }
+
+    /**
+     * Return a Cursor over the list of all notes in the database with state = current
+     *
+     * @return Cursor over all notes with state = current
+     */
+    public Cursor fetchCurrentNotes() {
+        Calendar calendar = Calendar.getInstance();
+        return mDb.rawQuery("SELECT * FROM NOTES WHERE ? > ACTIVATION AND ? < EXPIRATION", new String[]{Long.toString(calendar.getTimeInMillis()), Long.toString(calendar.getTimeInMillis())});
+    }
+
+    /**
+     * Return a Cursor over the list of all notes in the database with state = expired
+     *
+     * @return Cursor over all notes with state = expired
+     */
+    public Cursor fetchExpiredNotes() {
+        Calendar calendar = Calendar.getInstance();
+        return mDb.rawQuery("SELECT * FROM NOTES WHERE ? > ACTIVATION AND ? > EXPIRATION", new String[]{Long.toString(calendar.getTimeInMillis()), Long.toString(calendar.getTimeInMillis())});
     }
 
     /**
@@ -227,7 +270,7 @@ public class NotesDbAdapter {
      */
     public Cursor fetchNote(long rowId) throws SQLException {
 
-        Cursor mCursor = mDb.query(true, DATABASE_TABLE_NOTES, new String[] {KEY_NOTE_ROWID, KEY_NOTE_TITLE, KEY_NOTE_BODY, KEY_NOTE_CATEGORY}, KEY_NOTE_ROWID + "=" + rowId, null, null, null, null, null);
+        Cursor mCursor = mDb.query(true, DATABASE_TABLE_NOTES, new String[] {KEY_NOTE_ROWID, KEY_NOTE_TITLE, KEY_NOTE_BODY, KEY_NOTE_ACTIVATION_DATE, KEY_NOTE_EXPIRATION_DATE, KEY_NOTE_CATEGORY}, KEY_NOTE_ROWID + "=" + rowId, null, null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
         }
@@ -263,13 +306,17 @@ public class NotesDbAdapter {
      * @param title value to set note title to... title != null ^ title.length > 0
      * @param body value to set note body to... body != null
      * @param category value to set note category to... category != null
+     * @param activationDate value to set activation date to... activationDate >= 0 & activationDate <= expirationDate
+     * @param expirationDate value to set expiration date to... expirationDate >= 0 & expirationDate >= activationDate
      * @return true if the note was successfully updated, false otherwise
      */
-    public boolean updateNote(long rowId, String title, String body, String category) {
+    public boolean updateNote(long rowId, String title, String body, long activationDate, long expirationDate, String category) {
         ContentValues args = new ContentValues();
         args.put(KEY_NOTE_TITLE, title);
         args.put(KEY_NOTE_BODY, body);
         args.put(KEY_NOTE_CATEGORY, category);
+        args.put(KEY_NOTE_ACTIVATION_DATE, activationDate);
+        args.put(KEY_NOTE_EXPIRATION_DATE, expirationDate);
 
         if(title != null && title.length() == 0){
             return false;
@@ -294,7 +341,7 @@ public class NotesDbAdapter {
      * @param name value to set to name category to... name != null ^ name.length > 0
      * @return true if the category was successfully updated, false otherwise
      */
-    public boolean updateCategory(String oldName, String name) {
+    public boolean updateCategory(String oldName, String name, int icon) {
         if(oldName == null || oldName.length() == 0){
             return false;
         }
@@ -308,6 +355,7 @@ public class NotesDbAdapter {
 
         try{
             // Implementación distinta al updateNote, utilizando execSQL
+            mDb.execSQL("UPDATE Categories SET icon='" + icon + "' WHERE _id='" + oldName + "'");
             mDb.execSQL("UPDATE Categories SET _id='" + name + "' WHERE _id='" + oldName + "'");
             setOldCategoryToNewCategory(oldName,name);
             return true;
