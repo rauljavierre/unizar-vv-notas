@@ -40,9 +40,8 @@ public class CategoryIconAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup viewGroup) {
-        View vista = convertView;
         LayoutInflater inflate = LayoutInflater.from(context);
-        vista = inflate.inflate(R.layout.image_category, null);
+        View vista = inflate.inflate(R.layout.image_category, null);
 
         ImageView image = (ImageView) vista.findViewById(R.id.categoryImage);
         TextView categoryName = (TextView) vista.findViewById(R.id.categoryText);

@@ -3,7 +3,6 @@ package es.unizar.eina.notes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -14,7 +13,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import es.unizar.eina.bd.NotesDbAdapter;
 
@@ -64,6 +62,7 @@ public class NoteEdit extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
                 dateActivation = i2 +"/" +i1 +"/" +i;
+                activationCalendar.setDate(dateToMillisecondsFormat(dateActivation));
                 expirationCalendar.setMinDate(dateToMillisecondsFormat(dateActivation));
             }
         });
@@ -72,6 +71,7 @@ public class NoteEdit extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
                 dateExpiration = i2 +"/" +i1 +"/" +i;
+                expirationCalendar.setDate(dateToMillisecondsFormat(dateExpiration));
                 activationCalendar.setMaxDate(dateToMillisecondsFormat(dateExpiration));
             }
         });
@@ -119,7 +119,6 @@ public class NoteEdit extends AppCompatActivity {
             expirationCalendar.setMinDate(activationCalendar.getDate());
             activationCalendar.setMaxDate(expirationCalendar.getDate());
 
-            Log.d("d", "La fecha es: "+note.getLong((note.getColumnIndexOrThrow(NotesDbAdapter.KEY_NOTE_EXPIRATION_DATE))));
             int pos = 0;
             for (int i = 0; i < spinner.getAdapter().getCount(); i++) {
                 Cursor aux = (Cursor) spinner.getItemAtPosition(i);
@@ -166,13 +165,10 @@ public class NoteEdit extends AppCompatActivity {
     }
 
     private void saveState () {
-        Log.d("TEST","SE GUARDA NOTA");
         String title = mTitleText.getText().toString();
         String body = mBodyText.getText().toString();
         Cursor aux = ((Cursor) spinner.getSelectedItem());
         String category = null;
-        //activationCalendar.setDate(dateToMillisecondsFormat(dateActivation));
-        //expirationCalendar.setDate(dateToMillisecondsFormat(dateExpiration));
         long activationDate = activationCalendar.getDate();
         long expirationDate = expirationCalendar.getDate();
         if(aux != null){
@@ -192,7 +188,6 @@ public class NoteEdit extends AppCompatActivity {
         }
         else {
             if(category != null){
-                Log.d("d", "La fecha es: "+expirationDate);
                 mDbHelper.updateNote(mRowId, title, body, activationDate, expirationDate, category);
             }
             else{
@@ -221,9 +216,7 @@ public class NoteEdit extends AppCompatActivity {
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, day);
 
-        long milliTime = calendar.getTimeInMillis();
-        Log.d("d", "La conversion es: "+millisecondsToDateFormat(milliTime));
-        return milliTime;
+        return calendar.getTimeInMillis();
     }
 
     public String millisecondsToDateFormat(long date){
@@ -235,5 +228,4 @@ public class NoteEdit extends AppCompatActivity {
         int mDay = calendar.get(Calendar.DAY_OF_MONTH);
         return mDay+"/"+mMonth+"/"+mYear;
     }
-
 }

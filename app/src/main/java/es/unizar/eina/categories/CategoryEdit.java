@@ -17,7 +17,6 @@ public class CategoryEdit extends AppCompatActivity {
 
     private EditText mNameText;
     private Spinner imageList;
-    private CategoryWithImage categoryWithImage;
     private CategoryIconAdapter categoryIconAdapter;
     private ArrayList<CategoryWithImage> listaImagenes;
 

@@ -11,7 +11,10 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/name" />
+            android:paddingRight="20dp"
+            android:text="@string/name"
+            android:textSize="18sp"
+            android:textStyle="bold" />
         <EditText android:id="@+id/name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,12 +23,15 @@
 
     <Spinner
         android:id="@+id/spinnerImages"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:spinnerMode="dialog" />
 
     <Button
         android:id="@+id/confirm"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/confirm" />
 
