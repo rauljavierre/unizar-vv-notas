@@ -11,8 +11,10 @@ import android.widget.EditText;
 import android.database.Cursor;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import es.unizar.eina.bd.NotesDbAdapter;
 
@@ -76,8 +78,13 @@ public class NoteEdit extends AppCompatActivity {
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                setResult(RESULT_OK);
-                finish();
+                if (activationCalendar.getDate() > expirationCalendar.getDate()) {
+                    Toast.makeText(getApplicationContext(),"La fecha de activación tiene que ser anterior a la de expiración.", Toast.LENGTH_LONG).show();
+                }
+                else {
+                    setResult(RESULT_OK);
+                    finish();
+                }
             }
         });
     }
@@ -159,6 +166,7 @@ public class NoteEdit extends AppCompatActivity {
     }
 
     private void saveState () {
+        Log.d("TEST","SE GUARDA NOTA");
         String title = mTitleText.getText().toString();
         String body = mBodyText.getText().toString();
         Cursor aux = ((Cursor) spinner.getSelectedItem());
