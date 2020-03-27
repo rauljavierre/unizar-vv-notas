@@ -69,9 +69,17 @@ public class CategoryEdit extends AppCompatActivity {
             startManagingCursor(note);
             mNameText.setText(note.getString(note.getColumnIndexOrThrow(NotesDbAdapter.KEY_CATEGORY_NAME)));
             listaImagenes = new ArrayList<>();
-            listaImagenes.add(new CategoryWithImage("Música", R.drawable.ic_headset_black_24dp));
-            listaImagenes.add(new CategoryWithImage("Comida", R.drawable.ic_local_dining_black_24dp));
-            listaImagenes.add(new CategoryWithImage("Estudio", R.drawable.ic_library_books_black_24dp));
+            int icono_seleccionado = Integer.parseInt(note.getString(note.getColumnIndexOrThrow(NotesDbAdapter.KEY_CATEGORY_ICON)));
+            listaImagenes.add(new CategoryWithImage("Seleccionado",icono_seleccionado));
+            if (icono_seleccionado != R.drawable.ic_headset_black_24dp) {
+                listaImagenes.add(new CategoryWithImage("Música", R.drawable.ic_headset_black_24dp));
+            }
+            if (icono_seleccionado != R.drawable.ic_local_dining_black_24dp) {
+                listaImagenes.add(new CategoryWithImage("Comida", R.drawable.ic_local_dining_black_24dp));
+            }
+            if (icono_seleccionado != R.drawable.ic_library_books_black_24dp) {
+                listaImagenes.add(new CategoryWithImage("Estudio", R.drawable.ic_library_books_black_24dp));
+            }
             categoryIconAdapter = new CategoryIconAdapter(this, listaImagenes);
             imageList.setAdapter(categoryIconAdapter);
         }
