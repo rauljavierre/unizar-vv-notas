@@ -3,6 +3,7 @@ package es.unizar.eina.notes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -46,7 +47,7 @@ public class NoteEdit extends AppCompatActivity {
         Button confirmButton = (Button) findViewById(R.id.confirm);
 
         dateActivation = millisecondsToDateFormat(activationCalendar.getDate());
-        dateExpiration = millisecondsToDateFormat(getDefaultExpirationDate());
+        dateExpiration = millisecondsToDateFormat(expirationCalendar.getDate());
 
         mRowId = (savedInstanceState == null) ? null : (Long) savedInstanceState.getSerializable(NotesDbAdapter.KEY_NOTE_ROWID);
         if (mRowId == null) {
@@ -62,8 +63,8 @@ public class NoteEdit extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
                 dateActivation = i2 +"/" +i1 +"/" +i;
-                activationCalendar.setDate(dateToMillisecondsFormat(dateActivation));
-                expirationCalendar.setMinDate(dateToMillisecondsFormat(dateActivation));
+                activationCalendar.setDate(dateToMillisecondsFormat(dateActivation,true));
+                //expirationCalendar.setMinDate(dateToMillisecondsFormat(dateActivation,true));
             }
         });
 
@@ -71,15 +72,15 @@ public class NoteEdit extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int i, int i1, int i2) {
                 dateExpiration = i2 +"/" +i1 +"/" +i;
-                expirationCalendar.setDate(dateToMillisecondsFormat(dateExpiration));
-                activationCalendar.setMaxDate(dateToMillisecondsFormat(dateExpiration));
+                expirationCalendar.setDate(dateToMillisecondsFormat(dateExpiration,false)); // False para que sea 23:59:59
+                //activationCalendar.setMaxDate(dateToMillisecondsFormat(dateExpiration,true));
             }
         });
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (activationCalendar.getDate() > expirationCalendar.getDate()) {
-                    Toast.makeText(getApplicationContext(),"La fecha de activación tiene que ser anterior a la de expiración.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"La fecha de activación tiene que ser anterior o igual a la de expiración.", Toast.LENGTH_LONG).show();
                 }
                 else {
                     setResult(RESULT_OK);
@@ -116,8 +117,6 @@ public class NoteEdit extends AppCompatActivity {
 
             activationCalendar.setDate(note.getLong(note.getColumnIndexOrThrow(NotesDbAdapter.KEY_NOTE_ACTIVATION_DATE)));
             expirationCalendar.setDate(note.getLong(note.getColumnIndexOrThrow(NotesDbAdapter.KEY_NOTE_EXPIRATION_DATE)));
-            expirationCalendar.setMinDate(activationCalendar.getDate());
-            activationCalendar.setMaxDate(expirationCalendar.getDate());
 
             int pos = 0;
             for (int i = 0; i < spinner.getAdapter().getCount(); i++) {
@@ -131,8 +130,6 @@ public class NoteEdit extends AppCompatActivity {
         }
         else{
             expirationCalendar.setDate(getDefaultExpirationDate());
-            expirationCalendar.setMinDate(activationCalendar.getDate());
-            activationCalendar.setMaxDate(expirationCalendar.getDate());
             int pos = 0;
             for (int i = 0; i < spinner.getAdapter().getCount(); i++) {
                 Cursor aux = (Cursor) spinner.getItemAtPosition(i);
@@ -204,7 +201,7 @@ public class NoteEdit extends AppCompatActivity {
         return calendar.getTimeInMillis();
     }
 
-    public long dateToMillisecondsFormat(String date){
+    public long dateToMillisecondsFormat(String date, boolean activacion){
         String parts[] = date.split("/");
 
         int day = Integer.parseInt(parts[0]);
@@ -216,6 +213,16 @@ public class NoteEdit extends AppCompatActivity {
         calendar.set(Calendar.MONTH, month);
         calendar.set(Calendar.DAY_OF_MONTH, day);
 
+        if(activacion){
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+        }
+        else{
+            calendar.set(Calendar.HOUR_OF_DAY, 23);
+            calendar.set(Calendar.MINUTE, 59);
+            calendar.set(Calendar.SECOND, 59);
+        }
         return calendar.getTimeInMillis();
     }
 

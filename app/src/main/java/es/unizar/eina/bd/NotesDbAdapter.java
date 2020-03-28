@@ -129,6 +129,8 @@ public class NotesDbAdapter {
      * @return rowId or -1 if failed
      */
     public long createNote(String title, String body, long activationDate, long expirationDate, String category) {
+        Log.d("activationDate",Long.toString(activationDate));
+        Log.d("expirationDate",Long.toString(expirationDate));
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_NOTE_TITLE, title);
         initialValues.put(KEY_NOTE_BODY, body);

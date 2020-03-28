@@ -177,6 +177,7 @@ public class Notes extends AppCompatActivity {
         menu.add(Menu.NONE, ORDENAR_POR_NOTAS, Menu.NONE, R.string.menu_ordenar_por_notas);
         menu.add(Menu.NONE, ORDENAR_POR_CATEGORIAS, Menu.NONE, R.string.menu_ordenar_por_categorias);
         menu.add(Menu.NONE, VER_CATEGORIAS, Menu.NONE, R.string.menu_mostrar_categorias);
+        menu.add(Menu.NONE, VER_NOTAS, Menu.NONE, "Todas las notas");
         menu.add(Menu.NONE, VER_NOTAS_PREVISTAS, Menu.NONE, "Notas previstas");
         menu.add(Menu.NONE, VER_NOTAS_VIGENTES, Menu.NONE, "Notas vigentes");
         menu.add(Menu.NONE, VER_NOTAS_CADUCADAS, Menu.NONE, "Notas caducadas");
@@ -213,6 +214,9 @@ public class Notes extends AppCompatActivity {
             case VER_CATEGORIAS:
                 Intent i = new Intent(this, Categories.class);
                 startActivityForResult(i, ACTIVITY_CREATE);
+                return true;
+            case VER_NOTAS:
+                fillData();
                 return true;
             case VER_NOTAS_PREVISTAS:
                 fillExpectedNotes();
@@ -291,5 +295,4 @@ public class Notes extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, intent);
         fillData();
     }
-
 }
