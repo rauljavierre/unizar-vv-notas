@@ -402,7 +402,7 @@ public class Test {
         mDbHelper.deleteCategory("No va a dejar que se actualice");
     }
 
-    public void testVolumenN(int N){
+    private void testVolumenN(int N){
         try{
             Long ultimaAnyadida = insertarNotas(N);
             retirarNotas(ultimaAnyadida, N);

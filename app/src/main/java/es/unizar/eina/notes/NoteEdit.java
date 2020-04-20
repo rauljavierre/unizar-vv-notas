@@ -3,7 +3,6 @@ package es.unizar.eina.notes;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -196,7 +195,7 @@ public class NoteEdit extends AppCompatActivity {
     // Returns current date plus 30 days in milliseconds
     public long getDefaultExpirationDate(){
         Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DAY_OF_YEAR, 30);  // numero de días a añadir, o restar en caso de días<0
+        calendar.add(Calendar.DAY_OF_YEAR, 30);  // Número de días a añadir, o restar en caso de (días < 0)
 
         return calendar.getTimeInMillis();
     }
