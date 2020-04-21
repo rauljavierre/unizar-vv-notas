@@ -50,6 +50,8 @@ public class NotesDbAdapter {
     private static final String DATABASE_TABLE_NOTES = "notes";
     private static final int DATABASE_VERSION = 2;
 
+    public static final String DATABASE_DEFAULT_CATEGORY = "\"Ninguna\"";
+
     private final Context mCtx;
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -64,7 +66,7 @@ public class NotesDbAdapter {
             db.execSQL("DROP TABLE IF EXISTS notes");
             db.execSQL(DATABASE_CREATE_TABLE_CATEGORIES);
             db.execSQL(DATABASE_CREATE_TABLE_NOTES);
-            db.execSQL("INSERT INTO categories (_id) VALUES(\"Ninguna\");");
+            db.execSQL("INSERT INTO categories (_id) VALUES(" + DATABASE_DEFAULT_CATEGORY + ");");
         }
 
         @Override
@@ -75,7 +77,7 @@ public class NotesDbAdapter {
             db.execSQL("DROP TABLE IF EXISTS notes");
             db.execSQL(DATABASE_CREATE_TABLE_CATEGORIES);
             db.execSQL(DATABASE_CREATE_TABLE_NOTES);
-            db.execSQL("INSERT INTO categories (_id) VALUES(\"Ninguna\");");
+            db.execSQL("INSERT INTO categories (_id) VALUES(" + DATABASE_DEFAULT_CATEGORY + ");");
         }
     }
 

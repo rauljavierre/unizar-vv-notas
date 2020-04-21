@@ -12,42 +12,40 @@ import org.junit.runner.RunWith;
 import java.util.ArrayList;
 import java.util.List;
 import es.unizar.eina.bd.NotesDbAdapter;
+import static es.unizar.eina.bd.NotesDbAdapter.DATABASE_DEFAULT_CATEGORY;
 import static org.junit.Assert.*;
 
 @RunWith(AndroidJUnit4.class)
 public class NotesTest {
     @Rule
     public ActivityTestRule<Notes> activityRule = new ActivityTestRule<>(Notes.class);
-    private AppCompatActivity Notes;
+    private NotesDbAdapter mDbHelper;
     private List<Long> toDelete = new ArrayList<>();
 
     @Before
     public void setUp(){
-        Notes = activityRule.getActivity();
+        AppCompatActivity notes = activityRule.getActivity();
+        mDbHelper = NotesDbAdapter.getNotesDbAdapter(notes.getApplicationContext());
     }
 
     @After
     public void tearDown() {
-        NotesDbAdapter mDbHelper = NotesDbAdapter.getNotesDbAdapter(Notes.getApplicationContext());
         for( long i : toDelete ) {
             mDbHelper.deleteNote(i);
         }
     }
 
     @Test
-    public void testHumo() {
-        NotesDbAdapter mDbHelper = NotesDbAdapter.getNotesDbAdapter(Notes.getApplicationContext());
+    public void testDeHumo() {
         int pre = mDbHelper.fetchAllNotes().getCount();
-        toDelete.add(mDbHelper.createNote("Title","Body", 0, 86400000, "Ninguna"));
+        toDelete.add(mDbHelper.createNote("Title","Body", 0, 86400000, DATABASE_DEFAULT_CATEGORY));
         int post = mDbHelper.fetchAllNotes().getCount();
         assertEquals(pre + 1, post);
     }
 
     @Test
     public void testMasExhaustivo(){
-        NotesDbAdapter mDbHelper = NotesDbAdapter.getNotesDbAdapter(Notes.getApplicationContext());
-
-        long rowId = mDbHelper.createNote("Title","Body", 0, 86400000, "Ninguna");
+        long rowId = mDbHelper.createNote("Title","Body", 0, 86400000, DATABASE_DEFAULT_CATEGORY);
         toDelete.add(rowId);
 
         Cursor c = mDbHelper.fetchNote(rowId);
@@ -61,6 +59,6 @@ public class NotesTest {
         assertEquals("Body", body);
         assertEquals(0, activationDate);
         assertEquals(86400000, expirationDate);
-        assertEquals("Ninguna", category);
+        assertEquals(DATABASE_DEFAULT_CATEGORY, category);
     }
 }
