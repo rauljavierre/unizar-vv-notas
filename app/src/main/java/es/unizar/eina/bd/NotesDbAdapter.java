@@ -301,24 +301,21 @@ public class NotesDbAdapter {
      * @param title value to set note title to... title != null ^ title.length > 0
      * @param body value to set note body to... body != null
      * @param category value to set note category to... category != null
-     * @param activationDate value to set activation date to... activationDate >= 0 & activationDate <= expirationDate
-     * @param expirationDate value to set expiration date to... expirationDate >= 0 & expirationDate >= activationDate
+     * @param activationDate value to set activation date to... activationDate >= 0 ^ activationDate <= expirationDate
+     * @param expirationDate value to set expiration date to... expirationDate >= 0 ^ expirationDate >= activationDate
      * @return true if the note was successfully updated, false otherwise
      */
     public boolean updateNote(long rowId, String title, String body, long activationDate, long expirationDate, String category) {
+        if(title == null || title.length() == 0 || body == null || activationDate < 0 || expirationDate < 0 || category == null || activationDate > expirationDate){
+            return false;
+        }
+
         ContentValues args = new ContentValues();
         args.put(KEY_NOTE_TITLE, title);
         args.put(KEY_NOTE_BODY, body);
         args.put(KEY_NOTE_CATEGORY, category);
         args.put(KEY_NOTE_ACTIVATION_DATE, activationDate);
         args.put(KEY_NOTE_EXPIRATION_DATE, expirationDate);
-
-        if(title != null && title.length() == 0){
-            return false;
-        }
-        if(category == null){
-            return false;
-        }
 
         try{
             return mDb.update(DATABASE_TABLE_NOTES, args, KEY_NOTE_ROWID + "=" + rowId, null) > 0;

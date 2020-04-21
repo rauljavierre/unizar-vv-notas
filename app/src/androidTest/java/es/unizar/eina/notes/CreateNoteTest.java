@@ -3,23 +3,15 @@ package es.unizar.eina.notes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
-
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
-
 import es.unizar.eina.bd.NotesDbAdapter;
-
-import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class CreateNoteTest {
@@ -81,7 +73,7 @@ public class CreateNoteTest {
     }
 
     @Test(expected = IllegalArgumentException.class)
-    public void testCreateNoteNotValidActivationDateGreatherThanExpirationDate(){
+    public void testCreateNoteNotValidActivationDateGreaterThanExpirationDate(){
         mDbHelper.createNote("Title", "Body", 1, 0, "Ninguna");
     }
 }
