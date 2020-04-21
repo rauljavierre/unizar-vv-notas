@@ -29,24 +29,19 @@ public class Notes extends AppCompatActivity {
     private static final int INSERT_CATEGORY_ID = Menu.FIRST + 3;
     private static final int SEND_EMAIL_ID = Menu.FIRST + 4;
     private static final int SEND_SMS_ID = Menu.FIRST + 5;
-    private static final int TEST_UNITARIOS_ID = Menu.FIRST + 6;
-    private static final int TEST_VOLUMEN_ID = Menu.FIRST + 7;
-    private static final int TEST_SOBRECARGA = Menu.FIRST + 8;
-    private static final int ORDENAR_POR_NOTAS = Menu.FIRST + 9;
-    private static final int ORDENAR_POR_CATEGORIAS = Menu.FIRST + 10;
-    private static final int VER_CATEGORIAS = Menu.FIRST + 11;
-    private static final int VER_NOTAS = Menu.FIRST + 12;
-    private static final int VER_NOTAS_PREVISTAS = Menu.FIRST + 13;
-    private static final int VER_NOTAS_VIGENTES = Menu.FIRST + 14;
-    private static final int VER_NOTAS_CADUCADAS = Menu.FIRST + 15;
+    private static final int ORDENAR_POR_NOTAS = Menu.FIRST + 6;
+    private static final int ORDENAR_POR_CATEGORIAS = Menu.FIRST + 7;
+    private static final int VER_CATEGORIAS = Menu.FIRST + 8;
+    private static final int VER_NOTAS = Menu.FIRST + 9;
+    private static final int VER_NOTAS_PREVISTAS = Menu.FIRST + 10;
+    private static final int VER_NOTAS_VIGENTES = Menu.FIRST + 11;
+    private static final int VER_NOTAS_CADUCADAS = Menu.FIRST + 12;
 
 
     private NotesDbAdapter mDbHelper;
     private ListView mList;
 
     private SendAbstractionImpl sendAbstraction;
-
-    private Test test;
 
     /** Called when the activity is first created. */
     @Override
@@ -171,9 +166,6 @@ public class Notes extends AppCompatActivity {
         boolean result = super.onCreateOptionsMenu(menu);
         menu.add(Menu.NONE, INSERT_NOTE_ID, Menu.NONE, R.string.menu_insert_note);
         menu.add(Menu.NONE, INSERT_CATEGORY_ID, Menu.NONE, R.string.menu_insert_category);
-        menu.add(Menu.NONE, TEST_UNITARIOS_ID, Menu.NONE, R.string.menu_test_unitarios);
-        menu.add(Menu.NONE, TEST_VOLUMEN_ID, Menu.NONE, R.string.menu_test_volumen);
-        menu.add(Menu.NONE, TEST_SOBRECARGA, Menu.NONE, R.string.menu_test_sobrecarga);
         menu.add(Menu.NONE, ORDENAR_POR_NOTAS, Menu.NONE, R.string.menu_ordenar_por_notas);
         menu.add(Menu.NONE, ORDENAR_POR_CATEGORIAS, Menu.NONE, R.string.menu_ordenar_por_categorias);
         menu.add(Menu.NONE, VER_CATEGORIAS, Menu.NONE, R.string.menu_mostrar_categorias);
@@ -192,18 +184,6 @@ public class Notes extends AppCompatActivity {
                 return true;
             case INSERT_CATEGORY_ID:
                 createCategory();
-                return true;
-            case TEST_UNITARIOS_ID:
-                test = new Test(mDbHelper);
-                test.testUnitarios();
-                return true;
-            case TEST_VOLUMEN_ID:
-                test = new Test(mDbHelper);
-                test.testVolumen();
-                return true;
-            case TEST_SOBRECARGA:
-                test = new Test(mDbHelper);
-                test.testSobrecarga();
                 return true;
             case ORDENAR_POR_NOTAS:
                 fillData();

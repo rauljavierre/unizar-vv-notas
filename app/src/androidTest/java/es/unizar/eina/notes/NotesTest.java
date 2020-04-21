@@ -21,10 +21,9 @@ import static org.junit.Assert.*;
 public class NotesTest {
     @Rule
     public ActivityTestRule<Notes> activityRule = new ActivityTestRule<>(Notes.class);
-
     AppCompatActivity Notes;
 
-    long rowId;
+    long rowIdToDelete;
 
 
     @Before
@@ -35,14 +34,14 @@ public class NotesTest {
     @After
     public void tearDown() {
         NotesDbAdapter mDbHelper = NotesDbAdapter.getNotesDbAdapter(Notes.getApplicationContext());
-        mDbHelper.deleteNote(rowId);
+        mDbHelper.deleteNote(rowIdToDelete);
     }
 
     @Test
     public void testHumo() {
         NotesDbAdapter mDbHelper = NotesDbAdapter.getNotesDbAdapter(Notes.getApplicationContext());
         int pre = mDbHelper.fetchAllNotes().getCount();
-        rowId = mDbHelper.createNote("test","test", 0, 0, "Ninguna");
+        rowIdToDelete = mDbHelper.createNote("test","test", 0, 0, "Ninguna");
         int post = mDbHelper.fetchAllNotes().getCount();
         assertEquals(pre + 1, post);
     }
