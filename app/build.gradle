@@ -1,16 +1,28 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
+    compileSdkVersion 28
     buildToolsVersion '25.0.0'
 
     defaultConfig {
         applicationId "es.unizar.eina.notepadv3"
-        minSdkVersion 15
-        targetSdkVersion 23
+        minSdkVersion 26
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    useLibrary 'android.test.runner'
+    useLibrary 'android.test.base'
+    useLibrary 'android.test.mock'
+
+    android {
+        packagingOptions {
+            exclude 'README.txt'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -20,7 +32,47 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.1.0'
-    compile 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+
+    /******************/
+    /* Test de unidad */
+    /******************/
+
+    // Requerido -- JUnit 4 framework
+    testImplementation 'junit:junit:4.12'
+
+    // JUnit 5 (Opcional. No lo vamos a utilizar ni en la práctica ni en el trabajo de asignatura)
+    testImplementation 'org.junit.platform:junit-platform-launcher:1.4.1'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.4.1'
+    testImplementation 'org.junit.vintage:junit-vintage-engine:5.4.1'
+
+    // Opcinal -- Biblioteca Hamcrest
+    testImplementation 'org.hamcrest:hamcrest:2.1'
+
+
+    /***********************/
+    /* Test instrumentados */
+    /***********************/
+
+    androidTestImplementation 'androidx.test:core:1.2.0'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+
+    // Bibliotecas JUnit y Hamcrest
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'org.hamcrest:hamcrest-library:2.1'
+
+
+    /*******************/
+    /* Test de sistema */
+    /*******************/
+
+    // UI testing with Espresso
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    // UI testing with UI Automator
+    androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
+
+    // Intent mocking support
+    androidTestImplementation 'androidx.test.espresso:espresso-intents:3.2.0'
 }
