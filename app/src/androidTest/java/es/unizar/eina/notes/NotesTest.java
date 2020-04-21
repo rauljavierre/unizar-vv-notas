@@ -41,8 +41,26 @@ public class NotesTest {
     public void testHumo() {
         NotesDbAdapter mDbHelper = NotesDbAdapter.getNotesDbAdapter(Notes.getApplicationContext());
         int pre = mDbHelper.fetchAllNotes().getCount();
-        rowIdToDelete = mDbHelper.createNote("test","test", 0, 0, "Ninguna");
+        rowIdToDelete = mDbHelper.createNote("Title","Body", 0, 86400000, "Ninguna");
         int post = mDbHelper.fetchAllNotes().getCount();
         assertEquals(pre + 1, post);
+    }
+
+    @Test
+    public void testMasExhaustivo(){
+        NotesDbAdapter mDbHelper = NotesDbAdapter.getNotesDbAdapter(Notes.getApplicationContext());
+        long rowId = mDbHelper.createNote("Title","Body", 0, 86400000, "Ninguna");
+        Cursor c = mDbHelper.fetchNote(rowId);
+        String title = c.getString(c.getColumnIndexOrThrow(NotesDbAdapter.KEY_NOTE_TITLE));
+        String body = c.getString(c.getColumnIndexOrThrow(NotesDbAdapter.KEY_NOTE_BODY));
+        long activationDate = c.getLong(c.getColumnIndexOrThrow(NotesDbAdapter.KEY_NOTE_ACTIVATION_DATE));
+        long expirationDate = c.getLong(c.getColumnIndexOrThrow(NotesDbAdapter.KEY_NOTE_EXPIRATION_DATE));
+        String category = c.getString(c.getColumnIndexOrThrow(NotesDbAdapter.KEY_NOTE_CATEGORY));
+        if(title.equals("Title") && body.equals("Body") && activationDate == 0 && expirationDate == 86400 && category.equals("Ninguna")){
+            assertTrue(true);
+        }
+        else{
+            fail();
+        }
     }
 }
