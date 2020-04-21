@@ -126,11 +126,9 @@ public class NotesDbAdapter {
      * @param category the category of the note... category != null
      * @param activationDate the activation date of the note... activationDate >= 0 & activationDate <= expirationDate
      * @param expirationDate the expiration date of the note... expirationDate >= 0 & expirationDate >= activationDate
-     * @return rowId or -1 if failed
+     * @return rowId or exception if failed
      */
     public long createNote(String title, String body, long activationDate, long expirationDate, String category) {
-        Log.d("activationDate",Long.toString(activationDate));
-        Log.d("expirationDate",Long.toString(expirationDate));
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_NOTE_TITLE, title);
         initialValues.put(KEY_NOTE_BODY, body);
@@ -138,10 +136,7 @@ public class NotesDbAdapter {
         initialValues.put(KEY_NOTE_ACTIVATION_DATE, activationDate);
         initialValues.put(KEY_NOTE_EXPIRATION_DATE, expirationDate);
 
-        if(title.length() == 0){
-            return -1;
-        }
-        if(category == null){
+        if(title == null || title.length() == 0 || body == null || activationDate < 0 || expirationDate < 0 || category == null || activationDate > expirationDate){
             throw new IllegalArgumentException();
         }
 

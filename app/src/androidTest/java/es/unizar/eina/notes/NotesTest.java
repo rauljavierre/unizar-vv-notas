@@ -9,10 +9,8 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import es.unizar.eina.bd.NotesDbAdapter;
 import static org.junit.Assert.*;
 
@@ -31,7 +29,7 @@ public class NotesTest {
     @After
     public void tearDown() {
         NotesDbAdapter mDbHelper = NotesDbAdapter.getNotesDbAdapter(Notes.getApplicationContext());
-        for( long i : toDelete){
+        for( long i : toDelete ) {
             mDbHelper.deleteNote(i);
         }
     }
@@ -48,20 +46,21 @@ public class NotesTest {
     @Test
     public void testMasExhaustivo(){
         NotesDbAdapter mDbHelper = NotesDbAdapter.getNotesDbAdapter(Notes.getApplicationContext());
+
         long rowId = mDbHelper.createNote("Title","Body", 0, 86400000, "Ninguna");
         toDelete.add(rowId);
+
         Cursor c = mDbHelper.fetchNote(rowId);
         String title = c.getString(c.getColumnIndexOrThrow(NotesDbAdapter.KEY_NOTE_TITLE));
         String body = c.getString(c.getColumnIndexOrThrow(NotesDbAdapter.KEY_NOTE_BODY));
         long activationDate = c.getLong(c.getColumnIndexOrThrow(NotesDbAdapter.KEY_NOTE_ACTIVATION_DATE));
         long expirationDate = c.getLong(c.getColumnIndexOrThrow(NotesDbAdapter.KEY_NOTE_EXPIRATION_DATE));
         String category = c.getString(c.getColumnIndexOrThrow(NotesDbAdapter.KEY_NOTE_CATEGORY));
-        if(title.equals("Title") && body.equals("Body") && activationDate == 0 && expirationDate == 86400000 && category.equals("Ninguna")){
-            assertTrue(true);
-        }
-        else{
-            fail();
-        }
 
+        assertEquals("Title", title);
+        assertEquals("Body", body);
+        assertEquals(0, activationDate);
+        assertEquals(86400000, expirationDate);
+        assertEquals("Ninguna", category);
     }
 }
