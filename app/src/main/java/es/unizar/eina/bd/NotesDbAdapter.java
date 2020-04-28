@@ -39,6 +39,9 @@ public class NotesDbAdapter {
     private SQLiteDatabase mDb;
     private static NotesDbAdapter BD;
 
+    private boolean testing = false;
+    private long pseudotime;
+
     /**
      * Database creation sql statement
      */
@@ -215,8 +218,7 @@ public class NotesDbAdapter {
      * @return Cursor over all notes with state = expected
      */
     public Cursor fetchExpectedNotes() {
-        Calendar calendar = Calendar.getInstance();
-        return mDb.rawQuery("SELECT * FROM NOTES WHERE ? < ACTIVATION", new String[]{Long.toString(calendar.getTimeInMillis())});
+        return mDb.rawQuery("SELECT * FROM NOTES WHERE ? < ACTIVATION", new String[]{Long.toString(getActualTime())});
     }
 
     /**
@@ -225,8 +227,7 @@ public class NotesDbAdapter {
      * @return Cursor over all notes with state = current
      */
     public Cursor fetchCurrentNotes() {
-        Calendar calendar = Calendar.getInstance();
-        return mDb.rawQuery("SELECT * FROM NOTES WHERE ? > ACTIVATION AND ? < EXPIRATION", new String[]{Long.toString(calendar.getTimeInMillis()), Long.toString(calendar.getTimeInMillis())});
+        return mDb.rawQuery("SELECT * FROM NOTES WHERE ? > ACTIVATION AND ? < EXPIRATION", new String[]{Long.toString(getActualTime()), Long.toString(getActualTime())});
     }
 
     /**
@@ -235,8 +236,7 @@ public class NotesDbAdapter {
      * @return Cursor over all notes with state = expired
      */
     public Cursor fetchExpiredNotes() {
-        Calendar calendar = Calendar.getInstance();
-        return mDb.rawQuery("SELECT * FROM NOTES WHERE ? > ACTIVATION AND ? > EXPIRATION", new String[]{Long.toString(calendar.getTimeInMillis()), Long.toString(calendar.getTimeInMillis())});
+        return mDb.rawQuery("SELECT * FROM NOTES WHERE ? > ACTIVATION AND ? > EXPIRATION", new String[]{Long.toString(getActualTime()), Long.toString(getActualTime())});
     }
 
     /**
@@ -366,5 +366,24 @@ public class NotesDbAdapter {
      */
     private void setOldCategoryToNewCategory(String oldCategory, String newCategory){
         mDb.execSQL("UPDATE Notes SET category='" + newCategory + "' WHERE category='" + oldCategory + "'");
+    }
+
+    private long getActualTime() {
+        if (testing) {
+            Log.d("getActualTime",Long.toString(pseudotime));
+            return pseudotime;
+        }
+        else {
+            return System.currentTimeMillis();
+        }
+    }
+
+    public void setTestingTime(long pseudotime) {
+        this.testing = true;
+        this.pseudotime = pseudotime;
+    }
+
+    public void disableTestingTime() {
+        this.testing = false;
     }
 }
