@@ -8,7 +8,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.util.Calendar;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
+
 
 /**
  * Simple notes database access helper class. Defines the basic CRUD operations
@@ -39,8 +42,10 @@ public class NotesDbAdapter {
     private SQLiteDatabase mDb;
     private static NotesDbAdapter BD;
 
-    private boolean testing = false;
-    private long pseudotime;
+    // mClock permitirá resolver la dependencia relativa a la fecha actual
+    // En producción, su valor es el de un objeto que representa la fecha actual
+    // En testing, se podrá cambiar con el método setTestingTime
+    private Clock mClock = Clock.systemDefaultZone();
 
     /**
      * Database creation sql statement
@@ -369,21 +374,16 @@ public class NotesDbAdapter {
     }
 
     private long getActualTime() {
-        if (testing) {
-            Log.d("getActualTime",Long.toString(pseudotime));
-            return pseudotime;
-        }
-        else {
-            return System.currentTimeMillis();
-        }
+        final long currentTimeMillis = Instant.now(mClock).toEpochMilli();
+        Log.d("getActualTime", Long.toString(currentTimeMillis));
+        return currentTimeMillis;
     }
 
     public void setTestingTime(long pseudotime) {
-        this.testing = true;
-        this.pseudotime = pseudotime;
+        mClock = Clock.fixed(Instant.ofEpochMilli(pseudotime), ZoneId.systemDefault());
     }
 
     public void disableTestingTime() {
-        this.testing = false;
+        mClock = Clock.systemDefaultZone();
     }
 }
