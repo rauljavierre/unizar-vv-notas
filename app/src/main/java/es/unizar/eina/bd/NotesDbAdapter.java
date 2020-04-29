@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -79,8 +77,6 @@ public class NotesDbAdapter {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            Log.w(TAG, "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
-
             db.execSQL("DROP TABLE IF EXISTS categories");
             db.execSQL("DROP TABLE IF EXISTS notes");
             db.execSQL(DATABASE_CREATE_TABLE_CATEGORIES);
@@ -375,7 +371,6 @@ public class NotesDbAdapter {
 
     private long getActualTime() {
         final long currentTimeMillis = Instant.now(mClock).toEpochMilli();
-        Log.d("getActualTime", Long.toString(currentTimeMillis));
         return currentTimeMillis;
     }
 

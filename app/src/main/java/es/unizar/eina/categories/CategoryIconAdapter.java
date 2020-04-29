@@ -1,16 +1,13 @@
 package es.unizar.eina.categories;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.List;
-
 import es.unizar.eina.notes.R;
 
 public class CategoryIconAdapter extends BaseAdapter {
@@ -45,7 +42,6 @@ public class CategoryIconAdapter extends BaseAdapter {
 
         ImageView image = (ImageView) vista.findViewById(R.id.categoryImage);
         TextView categoryName = (TextView) vista.findViewById(R.id.categoryText);
-        Log.d("d", "El valor de la imagen es: "+lista.get(position).getIcon());
         image.setImageResource(lista.get(position).getIcon());
         categoryName.setText(lista.get(position).getCategoryName());
         return vista;
