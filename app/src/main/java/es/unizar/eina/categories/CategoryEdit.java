@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.database.Cursor;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -111,11 +112,16 @@ public class CategoryEdit extends AppCompatActivity {
             if (mRowId == null) {
                 String id = mDbHelper.createCategory(name, R.drawable.ic_local_dining_black_24dp);
                 if (!id.equals("Ninguna")) {
+                    Toast.makeText(getApplicationContext(),"Categoría guardada", Toast.LENGTH_LONG).show();
                     mRowId = id;
                 }
-
-            } else {
+                else{
+                    Toast.makeText(getApplicationContext(),"La categoría no ha sido guardada", Toast.LENGTH_LONG).show();
+                }
+            }
+            else {
                 mDbHelper.updateCategory(mRowId, name, icon);
+                Toast.makeText(getApplicationContext(),"Categoría guardada", Toast.LENGTH_LONG).show();
             }
         }
     }

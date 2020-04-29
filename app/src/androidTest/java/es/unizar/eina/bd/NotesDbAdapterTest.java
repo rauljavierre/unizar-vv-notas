@@ -28,9 +28,7 @@ public class NotesDbAdapterTest {
 
     private final Calendar UNO_ENERO_1997 = new GregorianCalendar(1997,0,1);
     private final Calendar UNO_ENERO_1998 = new GregorianCalendar(1998,0,1);
-    private final Calendar UNO_ENERO_1999 = new GregorianCalendar(1999,0,1);
     private final Calendar UNO_ENERO_2000 = new GregorianCalendar(2000,0,1);
-    private final Calendar UNO_ENERO_2001 = new GregorianCalendar(2001,0,1);
     private final Calendar UNO_ENERO_2002 = new GregorianCalendar(2002,0,1);
     private final Calendar UNO_ENERO_2003 = new GregorianCalendar(2003,0,1);
     private final Calendar UNO_ENERO_2004 = new GregorianCalendar(2004,0,1);

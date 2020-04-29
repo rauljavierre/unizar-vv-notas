@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Notepadv3</string>
+    <string name="app_name">Notes</string>
     <string name="title_activity_notes">Notas</string>
     <string name="title_activity_categories">Categorías</string>
     <string name="title_activity_note_edit">Editar nota</string>

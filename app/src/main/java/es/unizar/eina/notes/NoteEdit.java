@@ -79,7 +79,7 @@ public class NoteEdit extends AppCompatActivity {
         confirmButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (activationCalendar.getDate() > expirationCalendar.getDate()) {
-                    Toast.makeText(getApplicationContext(),"La fecha de activación tiene que ser anterior o igual a la de expiración.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"La fecha de activación tiene que ser anterior o igual a la de expiración", Toast.LENGTH_LONG).show();
                 }
                 else {
                     setResult(RESULT_OK);
@@ -170,26 +170,33 @@ public class NoteEdit extends AppCompatActivity {
         if(aux != null){
             category = aux.getString(aux.getColumnIndex("_id"));
         }
-        if (mRowId == null) {
-            long id = 0;
-            if(category != null){
-                id = mDbHelper.createNote(title, body, activationDate, expirationDate, category);
+        try {
+            if (mRowId == null) {
+                long id = 0;
+                if(category != null){
+                    id = mDbHelper.createNote(title, body, activationDate, expirationDate, category);
+                }
+                else{
+                    id = mDbHelper.createNote(title, body, activationDate, expirationDate,"Ninguna");
+                }
+                if (id > 0) {
+                    mRowId = id;
+                }
             }
-            else{
-                id = mDbHelper.createNote(title, body, activationDate, expirationDate,"Ninguna");
+            else {
+                if(category != null){
+                    mDbHelper.updateNote(mRowId, title, body, activationDate, expirationDate, category);
+                }
+                else{
+                    mDbHelper.updateNote(mRowId, title, body, activationDate, expirationDate, "Ninguna");
+                }
             }
-            if (id > 0) {
-                mRowId = id;
-            }
+            Toast.makeText(getApplicationContext(),"Nota guardada", Toast.LENGTH_LONG).show();
         }
-        else {
-            if(category != null){
-                mDbHelper.updateNote(mRowId, title, body, activationDate, expirationDate, category);
-            }
-            else{
-                mDbHelper.updateNote(mRowId, title, body, activationDate, expirationDate, "Ninguna");
-            }
+        catch (IllegalArgumentException e) {
+            Toast.makeText(getApplicationContext(),"Nota no guardada ya que no se ha especificado un título", Toast.LENGTH_LONG).show();
         }
+
     }
 
     // Returns current date plus 30 days in milliseconds
