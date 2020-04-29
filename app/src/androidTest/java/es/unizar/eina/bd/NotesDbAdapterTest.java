@@ -12,6 +12,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import es.unizar.eina.notes.Notes;
 import static es.unizar.eina.bd.NotesDbAdapter.DATABASE_DEFAULT_CATEGORY;
 import static es.unizar.eina.bd.NotesDbAdapter.KEY_NOTE_ROWID;
@@ -24,26 +26,24 @@ public class NotesDbAdapterTest {
     private NotesDbAdapter mDbHelper;
     private long rowId;
 
-    private Calendar unoEnero1997;
-    private Calendar unoEnero1998;
-    private Calendar unoEnero1999;
-    private Calendar unoEnero2000;
-    private Calendar unoEnero2001;
-    private Calendar unoEnero2002;
-    private Calendar unoEnero2003;
-    private Calendar unoEnero2004;
-    private Calendar unoEnero2005;
+    private final Calendar UNO_ENERO_1997 = new GregorianCalendar(1997,0,1);
+    private final Calendar UNO_ENERO_1998 = new GregorianCalendar(1998,0,1);
+    private final Calendar UNO_ENERO_1999 = new GregorianCalendar(1999,0,1);
+    private final Calendar UNO_ENERO_2000 = new GregorianCalendar(2000,0,1);
+    private final Calendar UNO_ENERO_2001 = new GregorianCalendar(2001,0,1);
+    private final Calendar UNO_ENERO_2002 = new GregorianCalendar(2002,0,1);
+    private final Calendar UNO_ENERO_2003 = new GregorianCalendar(2003,0,1);
+    private final Calendar UNO_ENERO_2004 = new GregorianCalendar(2004,0,1);
+    private final Calendar UNO_ENERO_2005 = new GregorianCalendar(2005,0,1);
 
     @Before
     public void setUp(){
         AppCompatActivity notes = activityRule.getActivity();
         mDbHelper = NotesDbAdapter.getNotesDbAdapter(notes.getApplicationContext());
 
-        inicializarVariablesCalendario();
-
         rowId = mDbHelper.createNote("Title", "Body",
-                                            unoEnero2000.getTimeInMillis(),
-                                            unoEnero2002.getTimeInMillis(),
+                                            UNO_ENERO_2000.getTimeInMillis(),
+                                            UNO_ENERO_2002.getTimeInMillis(),
                                             DATABASE_DEFAULT_CATEGORY);
     }
 
@@ -98,7 +98,7 @@ public class NotesDbAdapterTest {
         Assert.assertTrue(estaEnElListado(c));
 
         // Cambiamos la nota para que pase a vigente
-        mDbHelper.updateNote(rowId, "Title", "Body", unoEnero1998.getTimeInMillis(), unoEnero2002.getTimeInMillis(), DATABASE_DEFAULT_CATEGORY);
+        mDbHelper.updateNote(rowId, "Title", "Body", UNO_ENERO_1998.getTimeInMillis(), UNO_ENERO_2002.getTimeInMillis(), DATABASE_DEFAULT_CATEGORY);
 
         // Comprobamos que, efectivamente, ahora es una nota vigente
         c = mDbHelper.fetchCurrentNotes();
@@ -115,7 +115,7 @@ public class NotesDbAdapterTest {
         Assert.assertTrue(estaEnElListado(c));
 
         // Cambiamos la nota para que pase a caducada
-        mDbHelper.updateNote(rowId, "Title", "Body", unoEnero1997.getTimeInMillis(), unoEnero1998.getTimeInMillis(), DATABASE_DEFAULT_CATEGORY);
+        mDbHelper.updateNote(rowId, "Title", "Body", UNO_ENERO_1997.getTimeInMillis(), UNO_ENERO_1998.getTimeInMillis(), DATABASE_DEFAULT_CATEGORY);
 
         // Comprobamos que, efectivamente, ahora es una nota caducada
         c = mDbHelper.fetchExpiredNotes();
@@ -132,7 +132,7 @@ public class NotesDbAdapterTest {
         Assert.assertTrue(estaEnElListado(c));
 
         // Cambiamos la nota para que pase a prevista
-        mDbHelper.updateNote(rowId, "Title", "Body", unoEnero2002.getTimeInMillis(), unoEnero2003.getTimeInMillis(), DATABASE_DEFAULT_CATEGORY);
+        mDbHelper.updateNote(rowId, "Title", "Body", UNO_ENERO_2002.getTimeInMillis(), UNO_ENERO_2003.getTimeInMillis(), DATABASE_DEFAULT_CATEGORY);
 
         // Comprobamos que, efectivamente, ahora es una nota prevista
         c = mDbHelper.fetchExpectedNotes();
@@ -149,7 +149,7 @@ public class NotesDbAdapterTest {
         Assert.assertTrue(estaEnElListado(c));
 
         // Cambiamos la nota para que pase a caducada
-        mDbHelper.updateNote(rowId, "Title", "Body", unoEnero1997.getTimeInMillis(), unoEnero1998.getTimeInMillis(), DATABASE_DEFAULT_CATEGORY);
+        mDbHelper.updateNote(rowId, "Title", "Body", UNO_ENERO_1997.getTimeInMillis(), UNO_ENERO_1998.getTimeInMillis(), DATABASE_DEFAULT_CATEGORY);
 
         // Comprobamos que, efectivamente, ahora es una nota caducada
         c = mDbHelper.fetchExpiredNotes();
@@ -166,7 +166,7 @@ public class NotesDbAdapterTest {
         Assert.assertTrue(estaEnElListado(c));
 
         // Cambiamos la nota para que pase a prevista
-        mDbHelper.updateNote(rowId, "Title", "Body", unoEnero2004.getTimeInMillis(), unoEnero2005.getTimeInMillis(), DATABASE_DEFAULT_CATEGORY);
+        mDbHelper.updateNote(rowId, "Title", "Body", UNO_ENERO_2004.getTimeInMillis(), UNO_ENERO_2005.getTimeInMillis(), DATABASE_DEFAULT_CATEGORY);
 
         // Comprobamos que, efectivamente, ahora es una nota prevista
         c = mDbHelper.fetchExpectedNotes();
@@ -183,7 +183,7 @@ public class NotesDbAdapterTest {
         Assert.assertTrue(estaEnElListado(c));
 
         // Cambiamos la nota para que pase a vigente
-        mDbHelper.updateNote(rowId, "Title", "Body", unoEnero2002.getTimeInMillis(), unoEnero2004.getTimeInMillis(), DATABASE_DEFAULT_CATEGORY);
+        mDbHelper.updateNote(rowId, "Title", "Body", UNO_ENERO_2002.getTimeInMillis(), UNO_ENERO_2004.getTimeInMillis(), DATABASE_DEFAULT_CATEGORY);
 
         // Comprobamos que, efectivamente, ahora es una nota vigente
         c = mDbHelper.fetchCurrentNotes();
@@ -200,7 +200,7 @@ public class NotesDbAdapterTest {
         Assert.assertTrue(estaEnElListado(c));
 
         // Cambiamos la nota y comprobamos que sigue siendo prevista
-        mDbHelper.updateNote(rowId, "Title", "Body", unoEnero2002.getTimeInMillis(), unoEnero2004.getTimeInMillis(), DATABASE_DEFAULT_CATEGORY);
+        mDbHelper.updateNote(rowId, "Title", "Body", UNO_ENERO_2002.getTimeInMillis(), UNO_ENERO_2004.getTimeInMillis(), DATABASE_DEFAULT_CATEGORY);
 
         // Comprobamos que, efectivamente, sigue siendo una nota prevista
         c = mDbHelper.fetchExpectedNotes();
@@ -217,7 +217,7 @@ public class NotesDbAdapterTest {
         Assert.assertTrue(estaEnElListado(c));
 
         // Cambiamos la nota y comprobamos que sigue siendo vigente
-        mDbHelper.updateNote(rowId, "Title", "Body", unoEnero2000.getTimeInMillis(), unoEnero2004.getTimeInMillis(), DATABASE_DEFAULT_CATEGORY);
+        mDbHelper.updateNote(rowId, "Title", "Body", UNO_ENERO_2000.getTimeInMillis(), UNO_ENERO_2004.getTimeInMillis(), DATABASE_DEFAULT_CATEGORY);
 
         // Comprobamos que, efectivamente, sigue siendo una nota vigente
         c = mDbHelper.fetchCurrentNotes();
@@ -234,41 +234,13 @@ public class NotesDbAdapterTest {
         Assert.assertTrue(estaEnElListado(c));
 
         // Cambiamos la nota y comprobamos que sigue siendo caducada
-        mDbHelper.updateNote(rowId, "Title", "Body", unoEnero1997.getTimeInMillis(), unoEnero1998.getTimeInMillis(), DATABASE_DEFAULT_CATEGORY);
+        mDbHelper.updateNote(rowId, "Title", "Body", UNO_ENERO_1997.getTimeInMillis(), UNO_ENERO_1998.getTimeInMillis(), DATABASE_DEFAULT_CATEGORY);
 
         // Comprobamos que, efectivamente, sigue siendo una nota caducada
         c = mDbHelper.fetchExpiredNotes();
         Assert.assertTrue(estaEnElListado(c));
     }
 
-    private void inicializarVariablesCalendario() {
-        unoEnero1997 = Calendar.getInstance();
-        unoEnero1997.set(1997,0,1);
-
-        unoEnero1998 = Calendar.getInstance();
-        unoEnero1998.set(1998,0,1);
-
-        unoEnero1999 = Calendar.getInstance();
-        unoEnero1999.set(1999,0,1);
-
-        unoEnero2000 = Calendar.getInstance();
-        unoEnero2000.set(2000,0,1);
-
-        unoEnero2001 = Calendar.getInstance();
-        unoEnero2001.set(2001,0,1);
-
-        unoEnero2002 = Calendar.getInstance();
-        unoEnero2002.set(2002,0,1);
-
-        unoEnero2003 = Calendar.getInstance();
-        unoEnero2003.set(2003,0,1);
-
-        unoEnero2004 = Calendar.getInstance();
-        unoEnero2004.set(2004,0,1);
-
-        unoEnero2005 = Calendar.getInstance();
-        unoEnero2005.set(2005,0,1);
-    }
 
     private boolean estaEnElListado(Cursor c) {
         while(c.moveToNext()){
