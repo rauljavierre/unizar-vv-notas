@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="unizar-vv-notas/app" />
-      <module fileurl="file://$PROJECT_DIR$/unizar-vv-notas.iml" filepath="$PROJECT_DIR$/unizar-vv-notas.iml" group="unizar-vv-notas" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="unizar-vv-notas-eq3/app" />
+      <module fileurl="file://$PROJECT_DIR$/unizar-vv-notas-eq3.iml" filepath="$PROJECT_DIR$/unizar-vv-notas-eq3.iml" group="unizar-vv-notas-eq3" />
     </modules>
   </component>
 </project>
