@@ -2,6 +2,8 @@ package es.unizar.eina.notes;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.rule.ActivityTestRule;
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -12,7 +14,7 @@ import java.util.List;
 import es.unizar.eina.bd.NotesDbAdapter;
 
 @RunWith(Parameterized.class)
-public class TitulosPotencialmenteNoValidosNotasTest {
+public class TitulosPotencialmenteNoValidosCategoriasTest {
 
     @Rule
     public ActivityTestRule<Notes> activityRule = new ActivityTestRule<>(Notes.class);
@@ -20,12 +22,9 @@ public class TitulosPotencialmenteNoValidosNotasTest {
     private NotesDbAdapter mDbHelper;
 
     private String title;
-    private String body;
-    private long activation;
-    private long expiration;
-    private String category;
+    private int icon;
     private static String[] titulos =
-                {
+            {
                     "a\u0000a",     "a\u0001a", "a\u0002a", "a\u0003a", "a\u0004a", "a\u0005a",
                     "a\u0006a",     "a\u0007a", "a\u0008a", "a\u0009a", "a\na",     "a\u000Ba",
                     "a\u000Ca",     "a\ra",     "a\u000Ea", "a\u000Fa", "a\0010a", "a\u0011a",
@@ -51,7 +50,7 @@ public class TitulosPotencialmenteNoValidosNotasTest {
                     "\u0094",       "\u0095",   "\u0096",   "\u0097",   "\u0098",   "\u0099",
                     "\u009A",       "\u009B",   "\u009C",   "\u009D",   "\u009E",   "\u009F",
                     "\u00A0",       "\u00AD"
-                };
+            };
 
     @Before
     public void setUp(){
@@ -59,26 +58,23 @@ public class TitulosPotencialmenteNoValidosNotasTest {
         mDbHelper = NotesDbAdapter.getNotesDbAdapter(notes.getApplicationContext());
     }
 
-    public TitulosPotencialmenteNoValidosNotasTest(String title, String body, long activation, long expiration, String category){
+    public TitulosPotencialmenteNoValidosCategoriasTest(String title, int icon){
         this.title = title;
-        this.body = body;
-        this.activation = activation;
-        this.expiration = expiration;
-        this.category = category;
+        this.icon = icon;
     }
 
     @Parameterized.Parameters
     public static Iterable<Object[]> data(){
         List<Object[]> parametros = new ArrayList<>();
         for(int i = 0; i < titulos.length; i++){
-            parametros.add(new Object[] {titulos[i], "body", 0, 0, NotesDbAdapter.DATABASE_DEFAULT_CATEGORY});
+            parametros.add(new Object[] {titulos[i], R.drawable.ic_local_dining_black_24dp});
         }
 
         return parametros;
     }
 
     @Test
-    public void TitulosPotencialmenteNoValidosNotasTest(){
-        mDbHelper.createNote(title, body, activation, expiration, category);
+    public void TitulosPotencialmenteNoValidosCategoriasTest(){
+        Assert.assertNotEquals("Ninguna", mDbHelper.createCategory(title, icon));
     }
 }

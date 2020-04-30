@@ -1,7 +1,9 @@
-package es.unizar.eina.notes;
+package es.unizar.eina.categories;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.rule.ActivityTestRule;
+
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -10,9 +12,11 @@ import org.junit.runners.Parameterized;
 import java.util.ArrayList;
 import java.util.List;
 import es.unizar.eina.bd.NotesDbAdapter;
+import es.unizar.eina.notes.Notes;
+import es.unizar.eina.notes.R;
 
 @RunWith(Parameterized.class)
-public class TitulosInvalidosNotasTest {
+public class TitulosInvalidosCategoriasTest {
 
     @Rule
     public ActivityTestRule<Notes> activityRule = new ActivityTestRule<>(Notes.class);
@@ -20,10 +24,7 @@ public class TitulosInvalidosNotasTest {
     private NotesDbAdapter mDbHelper;
 
     private String title;
-    private String body;
-    private long activation;
-    private long expiration;
-    private String category;
+    private int icon;
 
 
     @Before
@@ -32,25 +33,22 @@ public class TitulosInvalidosNotasTest {
         mDbHelper = NotesDbAdapter.getNotesDbAdapter(notes.getApplicationContext());
     }
 
-    public TitulosInvalidosNotasTest(String title, String body, long activation, long expiration, String category){
+    public TitulosInvalidosCategoriasTest(String title, int icon){
         this.title = title;
-        this.body = body;
-        this.activation = activation;
-        this.expiration = expiration;
-        this.category = category;
+        this.icon = icon;
     }
 
     @Parameterized.Parameters
     public static Iterable<Object[]> data(){
         List<Object[]> parametros = new ArrayList<>();
-        parametros.add(new Object[] {null, "body", 0, 0, NotesDbAdapter.DATABASE_DEFAULT_CATEGORY});
-        parametros.add(new Object[] {new String(), "body", 0, 0, NotesDbAdapter.DATABASE_DEFAULT_CATEGORY});
+        parametros.add(new Object[] {null, R.drawable.ic_local_dining_black_24dp});
+        parametros.add(new Object[] {new String(), R.drawable.ic_local_dining_black_24dp});
 
         return parametros;
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void TitulosInvalidosNotasTest(){
-        mDbHelper.createNote(title, body, activation, expiration, category);
+    @Test
+    public void TitulosInvalidosCategoriasTest(){
+        Assert.assertEquals("Ninguna", mDbHelper.createCategory(title, icon));
     }
 }
