@@ -39,7 +39,6 @@ public class CreateNoteTest {
     public void testCreateNoteValid(){
         // Prueba nota con titulo != null ^ titulo.length > 0 ^ body != null ^ category != null ^ activationDate >= 0 && expirationDate >= 0
         Long rowId = mDbHelper.createNote("Title", "Body", 0, 0, DATABASE_DEFAULT_CATEGORY);
-        Assert.assertNotSame(-1, rowId);
         toDelete.add(rowId);
     }
 
