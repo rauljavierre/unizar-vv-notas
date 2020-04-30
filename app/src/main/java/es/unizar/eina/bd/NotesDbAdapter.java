@@ -161,11 +161,10 @@ public class NotesDbAdapter {
         initialValues.put(KEY_CATEGORY_NAME, name);
         initialValues.put(KEY_CATEGORY_ICON, icon);
 
-        if(name.length() == 0){
-            return "Ninguna";
-        }
-
         try{
+            if(name.length() == 0){
+                return "Ninguna";
+            }
             mDb.insertOrThrow(DATABASE_TABLE_CATEGORIES, null, initialValues);
             return name;
         }
@@ -343,8 +342,7 @@ public class NotesDbAdapter {
         if(name == null || name.length() == 0){
             return false;
         }
-
-        if(fetchCategory(oldName) == null){
+        if(fetchCategory(oldName) == null) {
             return false;
         }
 
