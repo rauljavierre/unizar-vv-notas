@@ -3,15 +3,16 @@ package es.unizar.eina.notes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import java.util.ArrayList;
-import java.util.List;
+
 import es.unizar.eina.bd.NotesDbAdapter;
+
 import static es.unizar.eina.bd.NotesDbAdapter.DATABASE_DEFAULT_CATEGORY;
 
 @RunWith(AndroidJUnit4.class)
@@ -20,7 +21,7 @@ public class CreateNoteTest {
     public ActivityTestRule<Notes> activityRule = new ActivityTestRule<>(Notes.class);
 
     private NotesDbAdapter mDbHelper;
-    private List<Long> toDelete = new ArrayList<>();
+    private long idCreatedNote = -1;
 
     @Before
     public void setUp(){
@@ -30,17 +31,14 @@ public class CreateNoteTest {
 
     @After
     public void tearDown() {
-        for( long i : toDelete ) {
-            mDbHelper.deleteNote(i);
-        }
+        mDbHelper.deleteNote(idCreatedNote);
     }
 
     @Test
     public void testCreateNoteValid(){
         // Prueba nota con titulo != null ^ titulo.length > 0 ^ body != null ^ category != null ^ activationDate >= 0 && expirationDate >= 0
-        Long rowId = mDbHelper.createNote("Title", "Body", 0, 0, DATABASE_DEFAULT_CATEGORY);
-        Assert.assertNotSame(-1, rowId);
-        toDelete.add(rowId);
+        idCreatedNote = mDbHelper.createNote("Title", "Body", 0, 0, DATABASE_DEFAULT_CATEGORY);
+        Assert.assertNotSame(-1, idCreatedNote);
     }
 
     @Test(expected = IllegalArgumentException.class)
