@@ -21,7 +21,7 @@ public class DeleteNoteTest {
     @Rule
     public ActivityTestRule<Notes> activityRule = new ActivityTestRule<>(Notes.class);
     private NotesDbAdapter mDbHelper;
-    private List<Long> toDelete = new ArrayList<>();
+    private long idCreatedNote = -1;
 
     @Before
     public void setUp(){
@@ -31,9 +31,7 @@ public class DeleteNoteTest {
 
     @After
     public void tearDown() {
-        for( long i : toDelete ) {
-            mDbHelper.deleteNote(i);
-        }
+        mDbHelper.deleteNote(idCreatedNote);
     }
 
     @Test
@@ -46,9 +44,8 @@ public class DeleteNoteTest {
     @Test
     public void testDeleteNoteRowIdGreaterThanNumberOfNotes(){
         // Creamos una nota para posteriormente eliminarla
-        long rowId = mDbHelper.createNote("Title", "Body", 0, 0, DATABASE_DEFAULT_CATEGORY);
-        assertFalse(mDbHelper.deleteNote(rowId + 1));
-        toDelete.add(rowId);
+        idCreatedNote = mDbHelper.createNote("Title", "Body", 0, 0, DATABASE_DEFAULT_CATEGORY);
+        assertFalse(mDbHelper.deleteNote(idCreatedNote + 1));
     }
 
     @Test
