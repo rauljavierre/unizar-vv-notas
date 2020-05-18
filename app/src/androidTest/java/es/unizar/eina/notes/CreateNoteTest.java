@@ -1,20 +1,16 @@
 package es.unizar.eina.notes;
 
 import android.database.Cursor;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
 import es.unizar.eina.bd.NotesDbAdapter;
-
 import static es.unizar.eina.bd.NotesDbAdapter.DATABASE_DEFAULT_CATEGORY;
 import static org.junit.Assert.assertEquals;
 

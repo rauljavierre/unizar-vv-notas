@@ -1,8 +1,7 @@
-package es.unizar.eina.notes;
+package es.unizar.eina.categories;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.rule.ActivityTestRule;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -12,6 +11,8 @@ import org.junit.runners.Parameterized;
 import java.util.ArrayList;
 import java.util.List;
 import es.unizar.eina.bd.NotesDbAdapter;
+import es.unizar.eina.notes.Notes;
+import es.unizar.eina.notes.R;
 
 @RunWith(Parameterized.class)
 public class TitulosPotencialmenteNoValidosCategoriasTest {

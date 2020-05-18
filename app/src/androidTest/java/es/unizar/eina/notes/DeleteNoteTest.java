@@ -8,8 +8,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import java.util.ArrayList;
-import java.util.List;
 import es.unizar.eina.bd.NotesDbAdapter;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

@@ -1,7 +1,6 @@
 package es.unizar.eina.bd;
 
 import android.database.Cursor;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
@@ -13,7 +12,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
 import es.unizar.eina.notes.Notes;
 import static es.unizar.eina.bd.NotesDbAdapter.DATABASE_DEFAULT_CATEGORY;
 import static es.unizar.eina.bd.NotesDbAdapter.KEY_NOTE_ROWID;
