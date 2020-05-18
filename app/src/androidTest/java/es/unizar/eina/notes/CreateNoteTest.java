@@ -1,5 +1,7 @@
 package es.unizar.eina.notes;
 
+import android.database.Cursor;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.rule.ActivityTestRule;
@@ -14,6 +16,7 @@ import org.junit.runner.RunWith;
 import es.unizar.eina.bd.NotesDbAdapter;
 
 import static es.unizar.eina.bd.NotesDbAdapter.DATABASE_DEFAULT_CATEGORY;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class CreateNoteTest {
@@ -39,6 +42,24 @@ public class CreateNoteTest {
         // Prueba nota con titulo != null ^ titulo.length > 0 ^ body != null ^ category != null ^ activationDate >= 0 && expirationDate >= 0
         idCreatedNote = mDbHelper.createNote("Title", "Body", 0, 0, DATABASE_DEFAULT_CATEGORY);
         Assert.assertNotEquals(-1, idCreatedNote);
+        assertNote(idCreatedNote, "Title", "Body", 0, 0, DATABASE_DEFAULT_CATEGORY);
+    }
+
+    private void assertNote(long rowID, String expectedTitle, String expectedBody,
+                            long expectedActivationDate, long expectedExpirationDate,
+                            String expectedCategory ) {
+        Cursor note = mDbHelper.fetchNote(rowID);
+        String actualTitle = note.getString(note.getColumnIndexOrThrow(NotesDbAdapter.KEY_NOTE_TITLE));
+        String actualBody = note.getString(note.getColumnIndexOrThrow(NotesDbAdapter.KEY_NOTE_BODY));
+        String actualCategory = note.getString(note.getColumnIndexOrThrow(NotesDbAdapter.KEY_NOTE_CATEGORY));
+        long actualActivationDate = note.getLong(note.getColumnIndexOrThrow(NotesDbAdapter.KEY_NOTE_ACTIVATION_DATE));
+        long actualExpirationDate = note.getLong(note.getColumnIndexOrThrow(NotesDbAdapter.KEY_NOTE_EXPIRATION_DATE));
+        note.close();
+        assertEquals(expectedTitle, actualTitle);
+        assertEquals(expectedBody, actualBody);
+        assertEquals(expectedCategory, actualCategory);
+        assertEquals(expectedActivationDate, actualActivationDate);
+        assertEquals(expectedExpirationDate, actualExpirationDate);
     }
 
     @Test(expected = IllegalArgumentException.class)
