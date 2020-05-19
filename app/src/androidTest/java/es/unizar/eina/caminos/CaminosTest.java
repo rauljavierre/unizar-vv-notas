@@ -20,6 +20,8 @@ import java.util.List;
 import es.unizar.eina.bd.NotesDbAdapter;
 import es.unizar.eina.notes.Notes;
 import es.unizar.eina.notes.R;
+
+import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -29,16 +31,27 @@ import static androidx.test.espresso.action.ViewActions.pressBack;
 import static androidx.test.espresso.action.ViewActions.replaceText;
 import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.CursorMatchers.withRowString;
+import static androidx.test.espresso.matcher.RootMatchers.isPlatformPopup;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withSpinnerText;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+
+import android.database.sqlite.SQLiteCursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+
+import static org.hamcrest.CoreMatchers.allOf;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.core.Is.is;
 
 public class CaminosTest {
 
-    private static String ultima_nota;
-    private static String ultima_categoria;
+    private static String ultima_nota = "note";
+    private static String ultima_categoria = null;
 
     @Rule
     public ActivityTestRule<Notes> mNotesRule = new ActivityTestRule<>(Notes.class);
@@ -59,13 +72,13 @@ public class CaminosTest {
 
     @Test
     public void camino2() throws InterruptedException {
-        List<Integer> listaAristas = new ArrayList<>(Arrays.asList(17,19,12,21,9,9,5,10,9,5,11,9,5,12,21,10,6,17,20,5,6,12,21,22,21,2,3,17,19,12,13,16,14,16,15,1));
+        List<Integer> listaAristas = new ArrayList<>(Arrays.asList(17,19,12,21,1,3,9,9,5,10,9,5,11,9,5,12,21,1,3,10,6,17,20,5,6,12,21,22,21,1,3,2,3,17,19,12,13,16,14,16,15,1));
         recorrerCamino(listaAristas);
     }
 
     @Test
     public void camino3() throws InterruptedException {
-        List<Integer> listaAristas = new ArrayList<>(Arrays.asList(1,3,12,21,22,13,18,15,17,20,1,4,2,4,5,2,4,6,2,4,7,2,4,8,5,2,4,9,5,2,4,10,2,4,11,2,4,12,14,18,15,17,19,2,4,12,15,2,4,12,21,22,14,16,15,17,20,2));
+        List<Integer> listaAristas = new ArrayList<>(Arrays.asList(1,3,12,13,16,15,1,3,12,21,22,13,18,15,17,20,1,4,2,4,5,2,4,6,2,4,7,2,4,8,5,2,4,9,5,2,4,10,2,4,11,2,4,12,14,18,15,17,19,2,4,12,15,2,4,12,21,22,14,16,15,17,20,2));
         recorrerCamino(listaAristas);
     }
     @Test
@@ -202,6 +215,11 @@ public class CaminosTest {
         final String body = generateRandomName();
         onView(withId(R.id.body)).perform(replaceText(body), closeSoftKeyboard());
 
+        if(ultima_categoria != null) {
+            onView(withId(R.id.spinner_categories)).perform(click());
+            onData(withRowString("_id", ultima_categoria)).perform(click());
+        }
+
         // Confirma y vuelve a la actividad anterior
         onView(withText(R.string.confirm)).perform(scrollTo());
         onView(withText(R.string.confirm)).perform(click());
@@ -215,6 +233,11 @@ public class CaminosTest {
 
         final String body = generateRandomName();
         onView(withId(R.id.body)).perform(replaceText(body), closeSoftKeyboard());
+
+        if(ultima_categoria != null) {
+            onView(withId(R.id.spinner_categories)).perform(click());
+            onData(withRowString("_id", ultima_categoria)).perform(click());
+        }
 
         onView(withId(R.id.body)).perform(pressBack());
     }
@@ -259,7 +282,7 @@ public class CaminosTest {
         onView(withText(ultima_nota)).perform(longClick());
         onView(withText(R.string.send_email)).perform(click());
 
-        // Aprendido en UIAutomator
+        // Aprendido en UIAutomator: acceso a otros elementos externos a la aplicación
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
         mDevice.pressBack();
     }
@@ -346,7 +369,8 @@ public class CaminosTest {
 
     // Botón back en la actividad principal viniendo de la actividad de lista de categorías.
     private void arista22() {
-        onView(withId(R.id.list)).perform(pressBack()); // Nadie sabe por qué haciendo un pressBack() únicamente no funciona
+        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
+        mDevice.pressBack();
     }
 
     private String generateRandomName() {
@@ -363,7 +387,6 @@ public class CaminosTest {
 
     public Activity getCurrentActivity(){
         final Activity[] currentActivity = {null};
-
         getInstrumentation().runOnMainSync(new Runnable() {
             public void run() {
                 Collection<Activity> resumedActivities =
@@ -375,7 +398,6 @@ public class CaminosTest {
                 }
             }
         });
-
         return currentActivity[0];
     }
 }
