@@ -1,11 +1,21 @@
 package es.unizar.eina.caminos;
 
+import android.app.Activity;
+
+import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
+import androidx.test.runner.lifecycle.Stage;
+import androidx.test.uiautomator.UiDevice;
+
+import org.hamcrest.Matcher;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.GregorianCalendar;
 import java.util.List;
 import es.unizar.eina.bd.NotesDbAdapter;
 import es.unizar.eina.notes.Notes;
@@ -21,7 +31,8 @@ import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static java.lang.Thread.sleep;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import android.util.Log;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class CaminosTest {
@@ -32,19 +43,63 @@ public class CaminosTest {
     @Rule
     public ActivityTestRule<Notes> mNotesRule = new ActivityTestRule<>(Notes.class);
 
-    /*@Rule
-    public ActivityTestRule<Categories> mCategoriesRule = new ActivityTestRule<>(Categories.class);
-    */
-
     @Before
     public void setUp() {
+        NotesDbAdapter db =  NotesDbAdapter.getNotesDbAdapter(mNotesRule.getActivity().getApplicationContext());
+
         // Resetear la base de datos
-        NotesDbAdapter.getNotesDbAdapter(mNotesRule.getActivity().getApplicationContext()).resetDatabase();
+        db.resetDatabase();
     }
 
     @Test
     public void camino1() throws InterruptedException {
-        List<Integer> listaAristas = new ArrayList<>(Arrays.asList(5,5,6,5,7,5,8,5,9,5,10,5,11,5,12,15,5,17,19,5,12,21,22,15,6,6,7,6,8,6,9,6,10,6,11,6,12,21,1));
+        List<Integer> listaAristas = new ArrayList<>(Arrays.asList(1,3,12,13,16,13,18,15,17,19,1,3,1,3,2,3,5,1,4,1,3,6,1,3,7,1,3,8,1,3,9,1,3,5,10,1,3,11,1));
+        recorrerCamino(listaAristas);
+    }
+
+    @Test
+    public void camino2() throws InterruptedException {
+        List<Integer> listaAristas = new ArrayList<>(Arrays.asList(17,19,12,21,9,9,5,10,9,5,11,9,5,12,21,10,6,17,20,5,6,12,21,22,21,2,3,17,19,12,13,16,14,16,15,1));
+        recorrerCamino(listaAristas);
+    }
+
+    @Test
+    public void camino3() throws InterruptedException {
+        List<Integer> listaAristas = new ArrayList<>(Arrays.asList(1,3,12,21,22,13,18,15,17,20,1,4,2,4,5,2,4,6,2,4,7,2,4,8,5,2,4,9,5,2,4,10,2,4,11,2,4,12,14,18,15,17,19,2,4,12,15,2,4,12,21,22,14,16,15,17,20,2));
+        recorrerCamino(listaAristas);
+    }
+    @Test
+    public void camino4() throws InterruptedException {
+        List<Integer> listaAristas = new ArrayList<>(Arrays.asList(5,5,6,5,7,5,8,5,9,5,10,5,11,5,12,15,5,17,19,5,12,21,22,15,6,6,7,5,6,8,5,6,9,5,6,10,6,11,6,12,21,1));
+        recorrerCamino(listaAristas);
+    }
+
+    @Test
+    public void camino5() throws InterruptedException {
+        List<Integer> listaAristas = new ArrayList<>(Arrays.asList(7,7,8,7,9,7,5,10,7,5,11,7,5,12,15,12,21,22,21,8,8,9,8,5,10,8,5,11,8,5,12,21,1,3,11));
+        recorrerCamino(listaAristas);
+    }
+
+    @Test
+    public void camino6() throws InterruptedException {
+        List<Integer> listaAristas = new ArrayList<>(Arrays.asList(7,5,17,19,9,7,5,12,21,22,21,7,8,5,17,19,10,10,11,10,12,21,22,21,17,20,22,21,12));
+        recorrerCamino(listaAristas);
+    }
+    @Test
+    public void camino7() throws InterruptedException {
+        List<Integer> listaAristas = new ArrayList<>(Arrays.asList(17,19,11,1,3,17,19,6,11,1,3,22,15,7,5,10,22,15,8,5,12,15,9,5,10,5,22,15,10,9,5,12,21,22,15,11,1,3,9,5,17,19,7,5,8,5,12,21,22,15,12,15,17,19,8,5));
+        recorrerCamino(listaAristas);
+    }
+
+    @Test
+    public void camino8() throws InterruptedException {
+        List<Integer> listaAristas = new ArrayList<>(Arrays.asList(17,19,17,19,12,21,22,13,18,21,17,20,17,20,12,13,16,21,5,17,20,12,14,18,21,6));
+        recorrerCamino(listaAristas);
+    }
+
+    @Test
+    public void camino9() throws InterruptedException {
+        List<Integer> listaAristas = new ArrayList<>(Arrays.asList(17,20,6,17,20,7,5,17,20,8,5,17,20,9,5,17,20,10,17,20,11,17,20,12));
         recorrerCamino(listaAristas);
     }
 
@@ -77,6 +132,7 @@ public class CaminosTest {
                     break;
                 case 9:
                     arista9();
+                    break;
                 case 10:
                     arista10();
                     break;
@@ -126,7 +182,7 @@ public class CaminosTest {
 
     // Menú contextual: “Añadir nota” en la actividad principal.
     private void arista1() {
-        openActionBarOverflowOrOptionsMenu(mNotesRule.getActivity());
+        openActionBarOverflowOrOptionsMenu(getCurrentActivity());
         onView(withText(R.string.menu_insert_note)).check(matches(notNullValue()));
         onView(withText(R.string.menu_insert_note)).perform(click());
     }
@@ -160,7 +216,7 @@ public class CaminosTest {
         final String body = generateRandomName();
         onView(withId(R.id.body)).perform(replaceText(body), closeSoftKeyboard());
 
-        pressBack();
+        onView(withId(R.id.body)).perform(pressBack());
     }
 
     // Menú contextual: “Ordenar por título” en la actividad principal.
@@ -202,7 +258,10 @@ public class CaminosTest {
     private void arista10() {
         onView(withText(ultima_nota)).perform(longClick());
         onView(withText(R.string.send_email)).perform(click());
-        pressBack();
+
+        // Aprendido en UIAutomator
+        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
+        mDevice.pressBack();
     }
 
     // Pulsación larga “Eliminar nota” en una nota en la actividad principal.
@@ -220,7 +279,7 @@ public class CaminosTest {
 
     // Menú contextual: “Añadir categoría” en la actividad de lista de categorías.
     private void arista13() {
-        openActionBarOverflowOrOptionsMenu(mNotesRule.getActivity());
+        openActionBarOverflowOrOptionsMenu(getCurrentActivity());
         onView(withText(R.string.menu_insert_category)).check(matches(notNullValue()));
         onView(withText(R.string.menu_insert_category)).perform(click());
     }
@@ -233,7 +292,7 @@ public class CaminosTest {
 
     // Botón back en la actividad de lista de categorías.
     private void arista15() {
-        pressBack();
+        onView(withText("Ninguna")).perform(pressBack()); // Nadie sabe por qué haciendo un pressBack() únicamente no funciona
     }
 
     // Botón back en la actividad de editar categoría viniendo de la actividad de lista de categorías.
@@ -242,7 +301,7 @@ public class CaminosTest {
         ultima_categoria = title;
         onView(withId(R.id.name)).perform(replaceText(title), closeSoftKeyboard());
 
-        pressBack();
+        onView(withText(R.string.confirm)).perform(pressBack()); // Nadie sabe por qué haciendo un pressBack() únicamente no funciona
     }
 
     // Menú contextual: “Añadir categoría” en la actividad principal.
@@ -276,7 +335,7 @@ public class CaminosTest {
         ultima_categoria = title;
         onView(withId(R.id.name)).perform(replaceText(title), closeSoftKeyboard());
 
-        pressBack();
+        onView(withId(R.id.name)).perform(pressBack()); // Nadie sabe por qué haciendo un pressBack() únicamente no funciona
     }
 
     // Pulsación larga “Mostrar notas de la categoría” en una categoría de la actividad de lista de categorías.
@@ -287,7 +346,7 @@ public class CaminosTest {
 
     // Botón back en la actividad principal viniendo de la actividad de lista de categorías.
     private void arista22() {
-        pressBack();
+        onView(withId(R.id.list)).perform(pressBack()); // Nadie sabe por qué haciendo un pressBack() únicamente no funciona
     }
 
     private String generateRandomName() {
@@ -299,5 +358,24 @@ public class CaminosTest {
             builder.append(chars.charAt(character));
         }
         return builder.toString();
+    }
+
+
+    public Activity getCurrentActivity(){
+        final Activity[] currentActivity = {null};
+
+        getInstrumentation().runOnMainSync(new Runnable() {
+            public void run() {
+                Collection<Activity> resumedActivities =
+                        ActivityLifecycleMonitorRegistry.getInstance().getActivitiesInStage(Stage.RESUMED);
+                for (Activity activity: resumedActivities){
+                    Log.d("Your current activity: ", activity.getClass().getName());
+                    currentActivity[0] = activity;
+                    break;
+                }
+            }
+        });
+
+        return currentActivity[0];
     }
 }
