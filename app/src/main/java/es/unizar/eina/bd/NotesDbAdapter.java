@@ -60,6 +60,8 @@ public class NotesDbAdapter {
 
     private final Context mCtx;
 
+    public long lastIdNotes;
+
     private static class DatabaseHelper extends SQLiteOpenHelper {
 
         DatabaseHelper(Context context) {
@@ -146,7 +148,8 @@ public class NotesDbAdapter {
             throw new IllegalArgumentException();
         }
 
-        return mDb.insertOrThrow(DATABASE_TABLE_NOTES, null, initialValues);
+        lastIdNotes = mDb.insertOrThrow(DATABASE_TABLE_NOTES, null, initialValues);
+        return lastIdNotes;
     }
 
     /**
