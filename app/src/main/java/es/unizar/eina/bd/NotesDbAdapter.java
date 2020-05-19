@@ -382,4 +382,8 @@ public class NotesDbAdapter {
     public void disableTestingTime() {
         mClock = Clock.systemDefaultZone();
     }
+
+    public void resetDatabase() {
+        mDbHelper.onUpgrade(mDb, 1, 1);
+    }
 }

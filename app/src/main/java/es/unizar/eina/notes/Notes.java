@@ -169,10 +169,10 @@ public class Notes extends AppCompatActivity {
         menu.add(Menu.NONE, ORDENAR_POR_NOTAS, Menu.NONE, R.string.menu_ordenar_por_notas);
         menu.add(Menu.NONE, ORDENAR_POR_CATEGORIAS, Menu.NONE, R.string.menu_ordenar_por_categorias);
         menu.add(Menu.NONE, VER_CATEGORIAS, Menu.NONE, R.string.menu_mostrar_categorias);
-        menu.add(Menu.NONE, VER_NOTAS, Menu.NONE, "Todas las notas");
-        menu.add(Menu.NONE, VER_NOTAS_PREVISTAS, Menu.NONE, "Notas previstas");
-        menu.add(Menu.NONE, VER_NOTAS_VIGENTES, Menu.NONE, "Notas vigentes");
-        menu.add(Menu.NONE, VER_NOTAS_CADUCADAS, Menu.NONE, "Notas caducadas");
+        menu.add(Menu.NONE, VER_NOTAS, Menu.NONE, R.string.menu_mostrar_notas);
+        menu.add(Menu.NONE, VER_NOTAS_PREVISTAS, Menu.NONE, R.string.menu_ver_previstas);
+        menu.add(Menu.NONE, VER_NOTAS_VIGENTES, Menu.NONE, R.string.menu_ver_vigentes);
+        menu.add(Menu.NONE, VER_NOTAS_CADUCADAS, Menu.NONE, R.string.menu_ver_caducadas);
         return result;
     }
 

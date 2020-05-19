@@ -6,7 +6,7 @@
     <string name="title_activity_category_edit">Editar categoría</string>
 
     <string name="no_notes">No hay notas todavía</string>
-    <string name="no_categories">No hay notas todavía</string>
+    <string name="no_categories">No hay categorías todavía</string>
     <string name="action_settings">Settings</string>
     <string name="menu_insert_note">Añadir nota</string>
     <string name="menu_delete_note">Eliminar nota</string>
@@ -25,6 +25,11 @@
     <string name="menu_ordenar_por_notas">Ordenar por notas</string>
     <string name="menu_ordenar_por_categorias">Ordenar por categorías</string>
     <string name="menu_mostrar_categorias">Mostrar categorías</string>
+    <string name="menu_mostrar_notas">Todas las notas</string>
+    <string name="menu_ver_previstas">Notas previstas</string>
+    <string name="menu_ver_vigentes">Notas vigentes</string>
+    <string name="menu_ver_caducadas">Notas caducadas</string>
+
 
     <string name="title">Título</string>
     <string name="category">Categoría</string>
