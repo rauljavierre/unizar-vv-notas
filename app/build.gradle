@@ -5,13 +5,19 @@ android {
     buildToolsVersion '25.0.0'
 
     defaultConfig {
-        applicationId "es.unizar.eina.notepadv3"
-        minSdkVersion 26
+        applicationId 'es.unizar.eina.notes'
+        minSdkVersion 23
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         // testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunner "cucumber.api.android.CucumberAndroidJUnitRunner"
+    }
+
+    sourceSets {
+        androidTest {
+            assets.srcDirs = ['src/androidTest/assets']
+        }
     }
 
     useLibrary 'android.test.runner'

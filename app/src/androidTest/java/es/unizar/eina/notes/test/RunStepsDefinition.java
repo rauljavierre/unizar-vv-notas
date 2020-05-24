@@ -1,6 +1,7 @@
 package es.unizar.eina.notes.test;
 
 import androidx.test.rule.ActivityTestRule;
+
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -8,11 +9,13 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import es.unizar.eina.notes.Notes;
 import es.unizar.eina.notes.R;
+
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.closeSoftKeyboard;
 import static androidx.test.espresso.action.ViewActions.replaceText;
+import static androidx.test.espresso.action.ViewActions.scrollTo;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -21,7 +24,6 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertNotNull;
 
 public class RunStepsDefinition {
-
     ActivityTestRule rule = new ActivityTestRule<>(Notes.class);
 
     @Before
@@ -43,9 +45,9 @@ public class RunStepsDefinition {
     public void I_create_a_note() {
         // Hace clic en la opción de menú para insertar una nota
         openActionBarOverflowOrOptionsMenu(rule.getActivity());
-        onView(withText(R.string.menu_insert_note)).check(matches(notNullValue()));
+        onView(withText(R.string.menu_insert_note)).check(
+                matches(notNullValue()));
         onView(withText(R.string.menu_insert_note)).perform(click());
-
         // Se asegura de que la actividad actual es NoteEdit
         onView(withId(R.id.title)).check(matches(notNullValue()));
     }
@@ -62,12 +64,13 @@ public class RunStepsDefinition {
 
     @When("I confirm")
     public void I_confirm() {
+        onView(withText(R.string.confirm)).perform(scrollTo());
         onView(withId(R.id.confirm)).perform(click());
     }
 
     @Then("I should see {string} on the list")
     public void I_should_see_title_on_the_list(final String result) {
-        // Aserción: comprobación de que la nota se visualiza en el listado
+// Aserción: comprobación de que la nota se visualiza en el listado
         onView(withText(result)).check(matches(isDisplayed()));
     }
 }
