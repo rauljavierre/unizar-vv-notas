@@ -5,7 +5,7 @@ import cucumber.api.CucumberOptions;
 
 
 
-@CucumberOptions(features = {"features/RF16sendNoteSMS.feature","features/RF17sendNoteEmail.feature"})
+@CucumberOptions(features = "features")
 public class RunAcceptationTests {
 
 }
