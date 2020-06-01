@@ -2,6 +2,8 @@ package es.unizar.eina.notes;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.rule.ActivityTestRule;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -58,6 +60,12 @@ public class TitulosPotencialmenteNoValidosNotasTest {
         AppCompatActivity notes = activityRule.getActivity();
         mDbHelper = NotesDbAdapter.getNotesDbAdapter(notes.getApplicationContext());
     }
+
+    @After
+    public void tearDown() {
+        NotesDbAdapter.getNotesDbAdapter(activityRule.getActivity().getApplicationContext());
+    }
+
 
     public TitulosPotencialmenteNoValidosNotasTest(String title, String body, long activation, long expiration, String category){
         this.title = title;
