@@ -17,7 +17,7 @@ import static es.unizar.eina.bd.NotesDbAdapter.DATABASE_DEFAULT_CATEGORY;
 import static es.unizar.eina.bd.NotesDbAdapter.KEY_NOTE_ROWID;
 
 @RunWith(AndroidJUnit4.class)
-public class NotesDbAdapterTest {
+public class GestionEstadoNotasTest {
     @Rule
     public ActivityTestRule<Notes> activityRule = new ActivityTestRule<>(Notes.class);
 
