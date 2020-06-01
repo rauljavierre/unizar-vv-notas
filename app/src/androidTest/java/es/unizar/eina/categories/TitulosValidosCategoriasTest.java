@@ -3,6 +3,7 @@ package es.unizar.eina.categories;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.rule.ActivityTestRule;
 
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -32,6 +33,12 @@ public class TitulosValidosCategoriasTest {
         AppCompatActivity notes = activityRule.getActivity();
         mDbHelper = NotesDbAdapter.getNotesDbAdapter(notes.getApplicationContext());
     }
+
+    @After
+    public void tearDown() {
+        NotesDbAdapter.getNotesDbAdapter(activityRule.getActivity().getApplicationContext());
+    }
+
 
     public TitulosValidosCategoriasTest(String title, int icon){
         this.title = title;

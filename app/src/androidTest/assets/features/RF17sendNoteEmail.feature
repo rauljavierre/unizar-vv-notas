@@ -10,4 +10,4 @@ Feature: Send note through email
 
     Examples:
       | title | body |
-      | Title send SMS | body |
+      | Title send email | body |

@@ -37,10 +37,10 @@ public class SMSImplementor implements SendImplementor {
      * @param body cuerpo del mensaje
      */
     public void send (String subject, String body) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.putExtra("sms_body", subject+": "+body);
-        intent.setType("vnd.android-dir/mms-sms");
-        getSourceActivity().startActivity(intent);
+        Uri uri = Uri.parse("smsto:");
+        Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+        it.putExtra("sms_body", subject + ": " + body);
+        getSourceActivity().startActivity(it);
    }
 
 }

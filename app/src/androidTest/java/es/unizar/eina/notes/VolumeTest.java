@@ -36,7 +36,7 @@ public class VolumeTest {
         }
     }
 
-    @Ignore("It's not a regression test")
+    //@Ignore("It's not a regression test")
     @Test
     public void testVolumen(){
         int[] volumes = {50, 999, 1000, 1001, 10000};

@@ -2,6 +2,8 @@ package es.unizar.eina.categories;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.rule.ActivityTestRule;
+
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
@@ -57,6 +59,13 @@ public class TitulosPotencialmenteNoValidosCategoriasTest {
     public void setUp(){
         AppCompatActivity notes = activityRule.getActivity();
         mDbHelper = NotesDbAdapter.getNotesDbAdapter(notes.getApplicationContext());
+    }
+
+    @After
+    public void tearDown(){
+        AppCompatActivity notes = activityRule.getActivity();
+        mDbHelper = NotesDbAdapter.getNotesDbAdapter(notes.getApplicationContext());
+        mDbHelper.resetDatabase();
     }
 
     public TitulosPotencialmenteNoValidosCategoriasTest(String title, int icon){

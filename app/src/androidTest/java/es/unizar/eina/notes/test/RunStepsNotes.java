@@ -207,7 +207,7 @@ public class RunStepsNotes {
 
     @When("I select list all categories")
     public void iSelectListAllCategories() {
-// Hace clic en la opción de menú para insertar una categoría
+        // Hace clic en la opción de menú para insertar una categoría
         openActionBarOverflowOrOptionsMenu(rule.getActivity());
         onView(withText(R.string.menu_mostrar_categorias)).check(
                 matches(notNullValue()));
@@ -360,10 +360,10 @@ public class RunStepsNotes {
 
     @Then("I should see the SMS application")
     public void iShouldSeeTheSMSApplication() throws InterruptedException {
-        Thread.sleep(2000);
         Activity current = getCurrentActivity();
         assertNotSame(current, rule.getActivity());
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
+        mDevice.pressBack();
         mDevice.pressBack();
         mDevice.pressBack();
     }
@@ -375,11 +375,9 @@ public class RunStepsNotes {
 
     @Then("I should see the email application")
     public void iShouldSeeTheEmailApplication() throws InterruptedException {
-        Thread.sleep(2000);
         Activity current = getCurrentActivity();
         assertNotSame(current, rule.getActivity());
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
-        mDevice.pressBack();
         mDevice.pressBack();
     }
 }
