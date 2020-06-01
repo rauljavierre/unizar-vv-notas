@@ -42,22 +42,22 @@ public class UpdateCategoryTest {
     }
 
     @Test
-    public void testDeleteCategoryNotValidOldNameNotExists(){
+    public void testUpdateCategoryNotValidOldNameNotExists(){
         Assert.assertFalse(mDbHelper.updateCategory("No existo", "Categoría nueva", R.drawable.ic_local_dining_black_24dp));
     }
 
     @Test
-    public void testDeleteCategoryNotValidOldNameNull(){
+    public void testUpdateCategoryNotValidOldNameNull(){
         Assert.assertFalse(mDbHelper.updateCategory(null, "Categoría nueva", R.drawable.ic_local_dining_black_24dp));
     }
 
     @Test
-    public void testDeleteCategoryNotValidOldNameEmpty(){
+    public void testUpdateCategoryNotValidOldNameEmpty(){
         Assert.assertFalse(mDbHelper.updateCategory(new String(), "Categoría nueva", R.drawable.ic_local_dining_black_24dp));
     }
 
     @Test
-    public void testDeleteCategoryNotValidNewNameExists(){
+    public void testUpdateCategoryNotValidNewNameExists(){
         String c1 = mDbHelper.createCategory("Categoría vieja", R.drawable.ic_local_dining_black_24dp);
         String c2 = mDbHelper.createCategory("Categoría repetida", R.drawable.ic_local_dining_black_24dp);
 
@@ -68,14 +68,14 @@ public class UpdateCategoryTest {
     }
 
     @Test
-    public void testDeleteCategoryNotValidNewNameNull(){
+    public void testUpdateCategoryNotValidNewNameNull(){
         toDelete = mDbHelper.createCategory("Categoría vieja", R.drawable.ic_local_dining_black_24dp);
 
         Assert.assertFalse(mDbHelper.updateCategory(toDelete, null, R.drawable.ic_local_dining_black_24dp));
     }
 
     @Test
-    public void testDeleteCategoryNotValidNewNameEmpty(){
+    public void testUpdateCategoryNotValidNewNameEmpty(){
         Assert.assertFalse(mDbHelper.updateCategory(toDelete, new String(), R.drawable.ic_local_dining_black_24dp));
     }
 }
