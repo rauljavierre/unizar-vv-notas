@@ -359,10 +359,13 @@ public class RunStepsNotes {
     }
 
     @Then("I should see the SMS application")
-    public void iShouldSeeTheSMSApplication() {
+    public void iShouldSeeTheSMSApplication() throws InterruptedException {
+        Thread.sleep(2000);
         Activity current = getCurrentActivity();
         assertNotSame(current, rule.getActivity());
-        current.finish();
+        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
+        mDevice.pressBack();
+        mDevice.pressBack();
     }
 
     @And("I select send note through email")
@@ -371,9 +374,12 @@ public class RunStepsNotes {
     }
 
     @Then("I should see the email application")
-    public void iShouldSeeTheEmailApplication() {
+    public void iShouldSeeTheEmailApplication() throws InterruptedException {
+        Thread.sleep(2000);
         Activity current = getCurrentActivity();
         assertNotSame(current, rule.getActivity());
-        current.finish();
+        UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
+        mDevice.pressBack();
+        mDevice.pressBack();
     }
 }
