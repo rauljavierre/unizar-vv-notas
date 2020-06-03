@@ -64,24 +64,37 @@ public class CategoryEdit extends AppCompatActivity {
     }
 
     private void populateFields() {
+        cargarSpinner();
         if (mRowId != null) {
             Cursor note = mDbHelper.fetchCategory(mRowId);
             startManagingCursor(note);
             mNameText.setText(note.getString(note.getColumnIndexOrThrow(NotesDbAdapter.KEY_CATEGORY_NAME)));
             listaImagenes = new ArrayList<>();
+            System.out.println(note.getString(note.getColumnIndexOrThrow(NotesDbAdapter.KEY_CATEGORY_ICON)));
             int icono_seleccionado = Integer.parseInt(note.getString(note.getColumnIndexOrThrow(NotesDbAdapter.KEY_CATEGORY_ICON)));
             listaImagenes.add(new CategoryWithImage("Seleccionado",icono_seleccionado));
-            if (icono_seleccionado != R.drawable.ic_headset_black_24dp) {
+            if (icono_seleccionado == R.drawable.ic_headset_black_24dp) {
                 listaImagenes.add(new CategoryWithImage("Música", R.drawable.ic_headset_black_24dp));
             }
-            if (icono_seleccionado != R.drawable.ic_local_dining_black_24dp) {
+            if (icono_seleccionado == R.drawable.ic_local_dining_black_24dp) {
                 listaImagenes.add(new CategoryWithImage("Comida", R.drawable.ic_local_dining_black_24dp));
             }
-            if (icono_seleccionado != R.drawable.ic_library_books_black_24dp) {
+            if (icono_seleccionado == R.drawable.ic_library_books_black_24dp) {
                 listaImagenes.add(new CategoryWithImage("Estudio", R.drawable.ic_library_books_black_24dp));
             }
             categoryIconAdapter = new CategoryIconAdapter(this, listaImagenes);
             imageList.setAdapter(categoryIconAdapter);
+            /*
+            int pos = 0;
+            for (int i = 0; i < imageList.getAdapter().getCount(); i++) {
+                Cursor aux = (Cursor) imageList.getItemAtPosition(i);
+                String cat = aux.getString(aux.getColumnIndex("_id"));
+                if(cat.equals(note.getString(note.getColumnIndexOrThrow(NotesDbAdapter.KEY_CATEGORY_ICON)))){
+                    pos = i;
+                }
+            }
+            imageList.setSelection(pos);
+            */
         }
     }
 
@@ -110,7 +123,7 @@ public class CategoryEdit extends AppCompatActivity {
         int icon = cat.getIcon();
         if(!name.equals("Ninguna")) {
             if (mRowId == null) {
-                String id = mDbHelper.createCategory(name, R.drawable.ic_local_dining_black_24dp);
+                String id = mDbHelper.createCategory(name, icon);
                 if (!id.equals("Ninguna")) {
                     Toast.makeText(getApplicationContext(),"Categoría guardada", Toast.LENGTH_LONG).show();
                     mRowId = id;
