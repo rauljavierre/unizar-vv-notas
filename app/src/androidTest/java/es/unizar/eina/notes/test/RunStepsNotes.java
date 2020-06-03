@@ -84,6 +84,7 @@ public class RunStepsNotes {
     public void launchActivity() throws Exception {
         rule.launchActivity(null);
         db = NotesDbAdapter.getNotesDbAdapter(rule.getActivity().getApplicationContext());
+        db.resetDatabase();
         viajarAlUnoDeEneroDelN(2000);
     }
 

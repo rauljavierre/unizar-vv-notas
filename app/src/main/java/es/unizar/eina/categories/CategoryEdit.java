@@ -84,17 +84,6 @@ public class CategoryEdit extends AppCompatActivity {
             }
             categoryIconAdapter = new CategoryIconAdapter(this, listaImagenes);
             imageList.setAdapter(categoryIconAdapter);
-            /*
-            int pos = 0;
-            for (int i = 0; i < imageList.getAdapter().getCount(); i++) {
-                Cursor aux = (Cursor) imageList.getItemAtPosition(i);
-                String cat = aux.getString(aux.getColumnIndex("_id"));
-                if(cat.equals(note.getString(note.getColumnIndexOrThrow(NotesDbAdapter.KEY_CATEGORY_ICON)))){
-                    pos = i;
-                }
-            }
-            imageList.setSelection(pos);
-            */
         }
     }
 
