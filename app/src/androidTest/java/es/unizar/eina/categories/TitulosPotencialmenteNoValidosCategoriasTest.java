@@ -6,6 +6,7 @@ import androidx.test.rule.ActivityTestRule;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -76,13 +77,14 @@ public class TitulosPotencialmenteNoValidosCategoriasTest {
     @Parameterized.Parameters
     public static Iterable<Object[]> data(){
         List<Object[]> parametros = new ArrayList<>();
-        for(int i = 0; i < titulos.length; i++){
-            parametros.add(new Object[] {titulos[i], R.drawable.ic_local_dining_black_24dp});
+        for (String titulo : titulos) {
+            parametros.add(new Object[]{titulo, R.drawable.ic_local_dining_black_24dp});
         }
 
         return parametros;
     }
 
+    @Ignore
     @Test
     public void TitulosPotencialmenteNoValidosCategoriasTest(){
         Assert.assertNotEquals("Ninguna", mDbHelper.createCategory(title, icon));

@@ -40,23 +40,19 @@ import static es.unizar.eina.bd.NotesDbAdapter.DATABASE_DEFAULT_CATEGORY;
 import static org.hamcrest.Matchers.allOf;
 import static org.hamcrest.Matchers.anything;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.fail;
 
 public class RunStepsNotes {
-    ActivityTestRule rule = new ActivityTestRule<>(Notes.class);
-    NotesDbAdapter db;
+    private ActivityTestRule rule = new ActivityTestRule<>(Notes.class);
+    private NotesDbAdapter db;
 
     private final Calendar UNO_ENERO_1997 = new GregorianCalendar(1997,0,1);
     private final Calendar UNO_ENERO_1998 = new GregorianCalendar(1998,0,1);
     private final Calendar UNO_ENERO_2000 = new GregorianCalendar(2000,0,1);
     private final Calendar UNO_ENERO_2002 = new GregorianCalendar(2002,0,1);
     private final Calendar UNO_ENERO_2003 = new GregorianCalendar(2003,0,1);
-    private final Calendar UNO_ENERO_2004 = new GregorianCalendar(2004,0,1);
-    private final Calendar UNO_ENERO_2005 = new GregorianCalendar(2005,0,1);
 
 
     private void viajarAlUnoDeEneroDelN(int year){
@@ -81,7 +77,7 @@ public class RunStepsNotes {
     }
 
     @Before
-    public void launchActivity() throws Exception {
+    public void launchActivity() {
         rule.launchActivity(null);
         db = NotesDbAdapter.getNotesDbAdapter(rule.getActivity().getApplicationContext());
         db.resetDatabase();
@@ -89,7 +85,7 @@ public class RunStepsNotes {
     }
 
     @After
-    public void finishActivity() throws Exception {
+    public void finishActivity() {
         db.resetDatabase();
         rule.getActivity().finish();
     }
@@ -130,7 +126,7 @@ public class RunStepsNotes {
 
     @Then("I should see {string} on the list")
     public void I_should_see_title_on_the_list(final String result) {
-// Aserción: comprobación de que la nota se visualiza en el listado
+        // Aserción: comprobación de que la nota se visualiza en el listado
         onView(withText(result)).check(matches(isDisplayed()));
     }
 
@@ -360,7 +356,7 @@ public class RunStepsNotes {
     }
 
     @Then("I should see the SMS application")
-    public void iShouldSeeTheSMSApplication() throws InterruptedException {
+    public void iShouldSeeTheSMSApplication() {
         Activity current = getCurrentActivity();
         assertNotSame(current, rule.getActivity());
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());
@@ -375,7 +371,7 @@ public class RunStepsNotes {
     }
 
     @Then("I should see the email application")
-    public void iShouldSeeTheEmailApplication() throws InterruptedException {
+    public void iShouldSeeTheEmailApplication() {
         Activity current = getCurrentActivity();
         assertNotSame(current, rule.getActivity());
         UiDevice mDevice = UiDevice.getInstance(getInstrumentation());

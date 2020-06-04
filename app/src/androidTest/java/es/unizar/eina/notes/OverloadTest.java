@@ -32,7 +32,7 @@ public class OverloadTest {
         }
     }
 
-    //@Ignore("It's not a regression test")
+    @Ignore("It's not a regression test")
     @Test(expected = Throwable.class)
     public void testOverloadBody(){
         String body = "F";

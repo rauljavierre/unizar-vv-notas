@@ -3,7 +3,6 @@ package es.unizar.eina.send;
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
-import android.telephony.SmsManager;
 
 /**
  * Created by usuario on 15/11/15.

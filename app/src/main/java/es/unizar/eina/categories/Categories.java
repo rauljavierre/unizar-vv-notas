@@ -68,10 +68,9 @@ public class Categories extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case INSERT_CATEGORY_ID:
-                createCategory();
-                return true;
+        if (item.getItemId() == INSERT_CATEGORY_ID) {
+            createCategory();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -126,7 +125,7 @@ public class Categories extends AppCompatActivity {
         startActivityForResult(i, ACTIVITY_CREATE);
     }
 
-    protected void editCategory(String id) {
+    private void editCategory(String id) {
         Intent i = new Intent(this, CategoryEdit.class);
         i.putExtra(NotesDbAdapter.KEY_CATEGORY_NAME, id);
         startActivityForResult(i, ACTIVITY_EDIT);

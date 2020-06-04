@@ -6,6 +6,6 @@ import cucumber.api.CucumberOptions;
 
 
 @CucumberOptions(features = "features")
-public class RunAcceptationTests {
+class RunAcceptationTests {
 
 }

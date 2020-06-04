@@ -16,7 +16,6 @@ import es.unizar.eina.bd.NotesDbAdapter;
 import es.unizar.eina.categories.Categories;
 import es.unizar.eina.categories.CategoryEdit;
 import es.unizar.eina.send.SendAbstractionImpl;
-import es.unizar.eina.test.Test;
 
 public class Notes extends AppCompatActivity {
 
@@ -57,10 +56,10 @@ public class Notes extends AppCompatActivity {
         if(b == null){
             fillData();
         }
-        else if (b != null && b.getString("categoria") == null) {
+        else if (b.getString("categoria") == null) {
             fillData();
         }
-        else if(b != null){
+        else {
             String categoria = b.getString("categoria");
             fillNotesOfACategory(categoria);
         }
@@ -264,7 +263,7 @@ public class Notes extends AppCompatActivity {
         startActivityForResult(i, ACTIVITY_CREATE);
     }
 
-    protected void editNote(long id) {
+    private void editNote(long id) {
         Intent i = new Intent(this, NoteEdit.class);
         i.putExtra(NotesDbAdapter.KEY_NOTE_ROWID, id);
         startActivityForResult(i, ACTIVITY_EDIT);

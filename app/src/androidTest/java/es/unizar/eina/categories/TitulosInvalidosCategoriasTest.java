@@ -1,6 +1,5 @@
 package es.unizar.eina.categories;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.rule.ActivityTestRule;
 
 import org.junit.After;

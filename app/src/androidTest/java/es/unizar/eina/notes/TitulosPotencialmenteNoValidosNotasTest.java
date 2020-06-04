@@ -5,6 +5,7 @@ import androidx.test.rule.ActivityTestRule;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -78,13 +79,14 @@ public class TitulosPotencialmenteNoValidosNotasTest {
     @Parameterized.Parameters
     public static Iterable<Object[]> data(){
         List<Object[]> parametros = new ArrayList<>();
-        for(int i = 0; i < titulos.length; i++){
-            parametros.add(new Object[] {titulos[i], "body", 0, 0, NotesDbAdapter.DATABASE_DEFAULT_CATEGORY});
+        for (String titulo : titulos) {
+            parametros.add(new Object[]{titulo, "body", 0, 0, NotesDbAdapter.DATABASE_DEFAULT_CATEGORY});
         }
 
         return parametros;
     }
 
+    @Ignore
     @Test
     public void TitulosPotencialmenteNoValidosNotasTest(){
         mDbHelper.createNote(title, body, activation, expiration, category);

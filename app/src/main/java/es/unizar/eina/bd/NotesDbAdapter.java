@@ -60,7 +60,7 @@ public class NotesDbAdapter {
 
     private final Context mCtx;
 
-    public long lastIdNotes;
+    private long lastIdNotes;
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -248,7 +248,7 @@ public class NotesDbAdapter {
      * @return Cursor over all notes of a category
      */
     public Cursor fetchAllNotesOfACategory(String category){
-        String args[] = {category};
+        String[] args = {category};
         return mDb.rawQuery("SELECT * FROM NOTES WHERE CATEGORY = ?", args);
     }
 
@@ -285,7 +285,7 @@ public class NotesDbAdapter {
      * @throws SQLException if category could not be found/retrieved
      */
     public Cursor fetchCategory(String name) throws SQLException {
-        String args[] = {name};
+        String[] args = {name};
         Cursor mCursor = mDb.rawQuery("SELECT * FROM CATEGORIES WHERE _ID = ?", args);
         if (mCursor != null && mCursor.getCount() > 0) {
             mCursor.moveToFirst();
@@ -371,8 +371,7 @@ public class NotesDbAdapter {
     }
 
     private long getActualTime() {
-        final long currentTimeMillis = Instant.now(mClock).toEpochMilli();
-        return currentTimeMillis;
+        return Instant.now(mClock).toEpochMilli();
     }
 
     public void setTestingTime(long pseudotime) {

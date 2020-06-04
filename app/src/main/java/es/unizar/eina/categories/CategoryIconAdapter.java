@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 import es.unizar.eina.notes.R;
 
-public class CategoryIconAdapter extends BaseAdapter {
+class CategoryIconAdapter extends BaseAdapter {
 
     private Context context;
     private List<CategoryWithImage> lista;

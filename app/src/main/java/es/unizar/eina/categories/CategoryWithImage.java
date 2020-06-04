@@ -1,6 +1,6 @@
 package es.unizar.eina.categories;
 
-public class CategoryWithImage {
+class CategoryWithImage {
 
     private String categoryName;
     private int icon;

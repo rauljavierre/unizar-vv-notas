@@ -200,15 +200,15 @@ public class NoteEdit extends AppCompatActivity {
     }
 
     // Returns current date plus 30 days in milliseconds
-    public long getDefaultExpirationDate(){
+    private long getDefaultExpirationDate(){
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_YEAR, 30);  // Número de días a añadir, o restar en caso de (días < 0)
 
         return calendar.getTimeInMillis();
     }
 
-    public long dateToMillisecondsFormat(String date, boolean activacion){
-        String parts[] = date.split("/");
+    private long dateToMillisecondsFormat(String date, boolean activacion){
+        String[] parts = date.split("/");
 
         int day = Integer.parseInt(parts[0]);
         int month = Integer.parseInt(parts[1]);
@@ -232,7 +232,7 @@ public class NoteEdit extends AppCompatActivity {
         return calendar.getTimeInMillis();
     }
 
-    public String millisecondsToDateFormat(long date){
+    private String millisecondsToDateFormat(long date){
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(date);
 

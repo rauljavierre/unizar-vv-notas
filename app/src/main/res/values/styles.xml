@@ -5,6 +5,6 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="Theme.AppCompat.DayNight"></style>
+    <style name="Theme.AppCompat.DayNight" />
 
 </resources>
